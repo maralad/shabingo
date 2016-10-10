@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+
+
+{%block jumbotron %}
+
+<div class="jumbotron">
+	<!-- <div class="col-md-12 text-center">
+        
+
+        <h5>In Beta. If you find any, please report bugs to info@shabingo.com. Thank you.</h5>
+  </div> -->
+ {% if not user.is_anonymous %}
+     <a>Hello {{ user.get_full_name|default:user.username }}</a>
+
+{% if my_vids %}
+
+<a>Your Videos</a>
+        
+        {% for document in my_vids %}
+	<div class="img">
+    <a target="_blank" href="{% url "myvideo" document.id %}">
+    <img src="{{ document.docfile2.url }}" alt="{{document.name}}" width="300" height="200">
+  </a>
+
+  <div class="desc">{{ document.name }}</div>
+</div>
+		
+        {% endfor %}
+       
+
+</div>               
+{% endif %}
+
+{% else %}
+<a>You have no videos yet.</a>
+{% endif %}
+
+     
+       
+{% endblock %}
+
+
+{% block content %}
+<br>
+
+
+
+{% endblock %}      

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+<style>
+     .jumbotron{
+	   
+     }
+</style>
+ <div class="jumbotron">
+     
+    
+      
+      <div class="container">
+	   <div class="col-md-12 text-center">&nbsp;
+	 {{ form.non_field_errors }}<br/>
+	 <div class="myerr"><h4><strong>{{ form.username.errors }}<br/>
+{{ form.email.errors }}<br/>
+ {{ form.password1.errors }}<br/>
+{{ form.password2.errors }}<br/></strong></h4></div>
+</div>
+
+
+<div  class='col-md-3' ></div>	  
+	       
+	       <div  class='col-sm-5 raisedbox' style="  transform-style: preserve-3d; padding:5px;background-color: rgba(65, 137, 146, 0.5);display:table-cell; vertical-align:middle; text-align:center" >
+ 
+
+   
+   <table class="table table-condensed" >
+    <thead>
+      <tr>
+        <th>Get Started<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+	</th>
+
+      </tr>
+     
+     </thead>
+    <tbody>
+      <tr>
+        <td>
+    
+    </h2> 
+  </div>
+	 <form   action="{% url "home" %}" method="post" enctype="multipart/form-data" >{%csrf_token%}
+	   
+                <div class="justifiedT">
+                <h5>User Name</h5>
+                </div>
+                <div class="justified">
+                
+                {{ form.username }}
+                </div>
+                <div class="justifiedT">
+                <h5>Email</h5>
+		
+		</div>
+		
+                <div class="justified">
+                
+                {{ form.email }}
+		</div>
+                
+		<div class="justifiedT">
+                <h5>Password</h5>
+                </div>
+                <div class="justified">
+                               {{ form.password1 }}
+                </div>
+                <div class="justifiedT">
+                <h5>Password confirmation</h5>
+                </div>
+                <div class="justified">
+                               {{ form.password2 }}
+                </div>
+
+<h4></h4>
+	    <input type="submit" class='btn btn-success btn-lg' value="Submit">
+      	</form>
+	 </td>
+      </tr>
+          </tbody>
+  </table>
+	      <div class="justified" style="color: #FFFfFf;">
+             <h4>Or...</h4>
+	      </div>
+	
+   {% if user and not user.is_anonymous %}
+        <p><a class="btn btn-primary btn-lg" role="button"href='{% url "loggedin2" %}'>Search for Videos</a></p>
+    
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+    
+      <p><a class="btn btn-primary btn-xs" role="button" href='{% url "logout" %}'>Log out &raquo;</a></p> 
+
+  
+   {% else %}
+      
+      
+    <h3></h3>
+    
+      
+      
+      <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img src="/static/media/FBook.png"></a>
+                                             <h6></h6>
+      
+      <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="/static/media/Twit.png"></a>
+    
+     </p>
+   {% endif %}
+     
+
+        
+	</div>
+      
+                   
+          </div>
+      
+    
+	 
+     
+      
+    
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+{% endblock %}

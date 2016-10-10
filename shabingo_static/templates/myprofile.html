@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+<link href="http://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/4.9/video.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
+
+
+<script>
+
+{%block jumbotron %}
+<script>
+	document.title = "Shabingo | My Profile";
+</script>                             
+ <div class="jumbotron">
+      <div class="container">
+        
+  {% if not user.is_anonymous %}
+                                      
+          
+
+        <a>Hello {{ user.get_full_name|default:user.username }}! Your Profile...</a>
+         
+         <table class="table table-hover" width="auto" style="  color: #FFFfFf; background: rgba(192,192,192,0.3)">
+              
+          
+          <tr>
+          
+              <td >
+                    
+                  <h4>First Name:</h4>
+              </td>
+               <td>
+                {{user.first_name }}
+                </td>
+          </tr>  
+           <tr>
+          
+              <td >
+                    
+                  <h4>Last Name:</h4>
+              </td>
+               <td>
+                {{user.last_name }}
+                </td>
+          </tr> 
+          <tr>
+          
+              <td >
+                    
+                  <h4>Email:</h4>
+              </td>
+               <td>
+                {{user.email }}
+                </td>
+          </tr> 
+          <tr>
+          
+              <td >
+                    
+                  <h4>Date Joined:</h4>
+              </td>
+               <td>
+                {{user.date_joined }}
+                </td>
+          </tr>     
+               
+         
+      
+        
+        {% if stripe %}
+            <tr>
+          
+              <td >
+                    
+                  <h4>Stripe:</h4>
+              </td>
+               <td>
+                <h4> Activated!</h4>
+                </td>
+          </tr>       
+        {% else %}
+            <tr>
+              <td>   
+                  <h4>Stripe:</h4>
+              </td>
+               <td>
+                <h4>Not Activated!</h4>
+                </td>
+          </tr>     
+             </table>
+            <h3>Shabingo uses Stripe to process payments.</h3>
+            <h3>In order to facilitate your clients to pay you for viewing your videos you need to just </h3>
+            <h3>follow a few very straight forward steps by clicking on the connect to stripe button below.</h3>   
+             
+   <a href='{% url "stripe_auth" %}' alt="Connect to Stripe" align="middle" ><img src="/static/media/blue-on-dark@2x.png"></img>  </a><script language="JavaScript" type="text/javascript">
+TrustLogo("https://shabingo.com/static/media/comodo_secure_100x85_transp.png", "CL1", "none");
+</script>                        
+        
+        <p><a class="btn btn-primary btn-xs" role="button" href='{% url "logout" %}'>Log out &raquo;</a></p> 
+  
+ 
+              <img src="/static/media/comodo_secure_100x85_transp.png"></img> 
+
+              {% endif %}
+        
+       
+            {% else %}
+     
+     <div class= 'col-md-4' style='text-align: center'>
+     <h3>Please login First to upload</h3>
+     {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-error">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if form.errors %} 
+        <p class="error">Sorry, That is not a valid Username or Password</p>
+    {% endif %}
+    <div style="float: left;">
+    <p>
+     
+     <form action="/accounts/auth/" method="post" >{% csrf_token %}
+        <label for="username">User name:</label>
+       <div class="bk"> <input type="text" name="username" value="" id="username"></div>
+          <h4></h4>
+        <label for="password">Password:</label>
+        <div class="bk"><input type="password" name="password" value="" id="password"></div>
+        <h4></h4>
+        <input type="submit" class="btn btn-primary btn-default" value="Login" />
+       </form>
+     <h1></h1>
+     
+     </p>
+    <h1></h1>
+     <ul style="list-style-type: none;">
+          <li>
+          </li><p><a class="btn btn-default btn-lg" role="button" href='{% url "reg" %}'>Not a member? Register Here</a></p> 
+        </li>
+     
+    <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+     </li>
+     <li>
+     
+        <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+  
+
+     </ul>
+     </div>
+    
+      {% endif %}
+   </ul>
+ </p>
+ </div>
+   
+    <div>
+        
+      </div>
+    </div>
+                                       
+{% endblock %}
+
+

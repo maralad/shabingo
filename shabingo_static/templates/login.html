@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+     
+    </div>
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-md-3'>
+    </div>
+    <div id="over" class= 'col-md-4 raisedbox' style="  transform-style: preserve-3d; padding:5px;background-color: rgba(65, 137, 146, 0.5);display:table-cell; vertical-align:middle; text-align:center">
+     
+     {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+    {% endif %}
+    {% if form.errors %} 
+        <p class="error">Sorry, That is not a valid Username or Password</p>
+    {% endif %}
+    
+    <p>
+     
+     <form action="/accounts/auth/" method="post" >{% csrf_token %}
+        <label style="color:white" for="username">User name:</label>
+       <div class="bk"> <input type="text" name="username" value="" id="username"></div>
+          <h4></h4>
+        <label style="color:white" for="password">Password:</label>
+        <div class="bk"><input type="password" name="password" value="" id="password"></div>
+        <h4></h4>
+        <input type="submit" class="btn btn-primary btn-default" value="Login" />
+        <br>
+        <a href="{% url 'reset_password_reset1' %}">Forgot your password ?</a>
+       </form>
+     <h1></h1>
+     
+     </p>
+    <h1></h1>
+     
+         
+          <a class="btn btn-default btn-lg" role="button" href='{% url "reg" %}'>Register Here <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></a> 
+        
+                                                      <h6></h6>
+   
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="/static/media/Twit.png"></a>
+   
+     
+        <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img src="/static/media/FBook.png"></a>
+  
+
+     
+     </div>
+    
+{% endblock %}

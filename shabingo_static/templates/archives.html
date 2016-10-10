@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container">
+        <h1>Shabingo Blog Archives!!</h1>
+        
+{% for post in object_list %}
+
+<p>{{ post.created|date:"y-m-d"}}: <a href="/blog/{{post.id}}">{{post.title}}</a></p>
+
+
+{% endfor %}
+      </div>
+    </div>
+ 
+{% endblock %}
+
+
+{% block content %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+    <h2>Thank you</h2>  
+    {% for form in form_data %}
+        {{form}}
+    {% endfor %}
+ </div>
+ {% endblock %}
+ 

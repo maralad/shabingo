@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Shabingo Videos" />
+    <meta property="og:description" content="Check out this video on Shabingo.com" />
+    <meta property="og:image" content="https://shabingo.com/static/media/Slogan1.png" />
+
+   
+    <link rel="shortcut icon" href="/static/favicon.ico">
+<meta name="google-site-verification" content="G4pzTz7squpm4drd3RBQibQfIYlS3yjPwUMAJTp2BpU" />
+    <title>The webs marketplace for originally created videos</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/jumbotron.css" rel="stylesheet">
+    
+        <!-- Custom	CSS -->
+    <link href="/static/css/custom.css" rel="stylesheet">
+        
+      
+      
+
+
+    <!--[if lt IE 9]><script src="/static/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+          <script src="https://checkout.stripe.com/checkout.js"></script>
+
+       
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link href="https://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/4.9/video.js"></script>
+      
+    <![endif]-->
+    <script>
+      
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60179558-1', 'auto');
+  ga('send', 'pageview');
+  
+function showList(){
+  var check = document.getElementById("checklist");
+  check.style.visibility="visible";
+}
+
+
+
+var up = document.getElementById("button");
+if(up){
+    up.addEventListener("click", uploadFile);
+}
+function fullMod(){
+ 
+		$("#fullModal").modal('show');
+}
+function modFunction(){
+   document.getElementById("myDialog").showModal(); 
+}
+
+function delMod(){
+ 
+		$("#myModal").modal('show');
+}
+function signMod(){
+ 
+		$("#signModal").modal('show');
+}
+function showSignForm(){
+     var sign = document.getElementById("signupdis");
+     sign.style.visibility = "visible";
+     sign.style.left= "-280px";
+     sign.style.top= "1px";
+     
+     
+      //var progBar2 = document.getElementById("progBar");
+     //progBar2.style.visibility = "visible"; 
+}
+function loadPoster(){
+
+var vid = videojs("myVideo");
+
+    //vid.posterImage.show();
+    vid.bigPlayButton.hide();
+    vid.currentTime(3);
+}
+
+
+//<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
+<script>
+       $(document).ready(function(){
+           $('li img').on('click',function(){
+                var src = $(this).attr('src');
+                var img = '<img src="' + src + '" class="img-responsive"/>';
+                $('#myModal').modal();
+                $('#myModal').on('shown.bs.modal', function(){
+                    $('#myModal .modal-body').html(myVideo);         //Try replacing img with the movie preview 
+                });
+                $('#myModal').on('hidden.bs.modal', function(){
+                    $('#myModal .modal-body').html(myVideo);
+                });
+           });  
+        })
+    </script>
+<script type='text/javascript' data-cfasync='false' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js' data-shr-siteid='7c1ca232a4e20b2114b1e4f1419bae24' async='async'></script>
+     </head>
+
+<!-- AddToAny END -->
+ <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=578266885617390";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!--
+<dialog id="myDialog">In order to use the upload facility please register so you will to be able to use it when we lanuch on March 5th 2015. "Press esc to close" </dialog>
+
+ -->
+<!-- Modal -->
+
+
+  
+
+
+
+   {% include 'navbar.html' %}
+   
+   
+
+    {% block jumbotron %}
+   
+    {% endblock %}
+
+    <div class="container">
+             {% if messages %}
+      <div class ='row'>
+      	<div class='col-sm-6 col-sm-offset-3'>
+      
+     
+		
+    	{% for message in messages %}
+    		<p{% if message.tags == 'success' %} class="alert alert-success"
+		  {{ message }}</p>
+		{% endif %}
+		
+		<p{% if message.tags == 'error' %} class="alert alert-danger">
+		  {{ message }}</p>
+		{% endif %}
+    
+    	{% endfor %}
+			
+		   
+        </div>
+      </div>
+      	{% endif %} 
+      <div class="row">
+      {% block content %}{% endblock %}  
+      </div>
+	<hr>
+
+      <footer>
+	
+        <a href='https://shabingo.com'>&copy; Shabingo.com 2015</a>
+
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+<style>
+  .video-js {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+   
+}
+
+.vjs-poster {
+   
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+</style>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<!-- AddToAny BEGIN -->
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+<a class="a2a_dd" href="https://www.addtoany.com/share_save?linkurl=http%3A%2F%2Fshabingo.com&amp;linkname=Shabingo"></a>
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter"></a>
+<a class="a2a_button_google_plus"></a>
+<a class="a2a_button_pinterest"></a>
+<a class="a2a_button_reddit"></a>
+</div>
+
+<script type="text/javascript">
+var a2a_config = a2a_config || {};
+a2a_config.linkname = "Shabingo";
+a2a_config.linkurl = "https://shabingo.com";
+TrustLogo("https://shabingo.com/static/media/comodo_secure_100x85_transp.png", "CL1", "none");
+</script>     
+
+                                                              
+<a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
+  </body>
+</html>

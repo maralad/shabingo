@@ -1,0 +1,337 @@
+/* -- custom css for Bootstrap 3.x --*/
+
+/* move special fonts to HTML head for better performance */
+@import url(https://fonts.googleapis.com/css?family=Voltaire);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+ /*--f ontfamily:Arial,sans-serif; --*/
+}
+
+/* fix bs3 horizontal scrollbar bug */
+.row { margin: 0; padding: 0 }
+
+
+/* use special fonts in certain elements */
+h1,h2,h3,h4,.lead,.btn,.navbar a {
+  font-family: 'Open Sans', sans-serif;
+  text-transform:uppercase; 
+  /*--font-family:'Voltaire',Arial,sans-serif; --*/
+ /*-- letter-spacing:2px;--*/
+}
+body p {
+            font-style: italic;
+            font-weight: 300; /* You specify the number you see next to the fonts to change from light to bold ie you would put 700 etc. etc. */
+        }
+h1 {
+  font-size:50px;
+}
+
+/* make images gray */
+img.grayscale {
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+}
+
+.icon-bar {
+   background-color:#fff;
+}
+
+.scroll-down a, .scroll-top a {
+   color:#ffffff;
+}
+
+.scroll-down {
+   position:fixed;
+   bottom:20%;
+   right:0%;
+   color:#f9f9f9;
+}
+
+.scroll-top {
+  background-color:#dbdbdb;
+}
+
+.vert {
+  vertical-align: middle;
+  width:100%;
+  padding-top:4%;
+  text-align:center;
+}
+
+.header .btn-lg {
+   font-size:28px;
+   border-color:#eeeeee;
+   padding:15px;
+   background-color:transparent;
+   color:#ffffff;
+}
+
+.header .btn-lg:hover {
+   background-color:#eeeeee;
+   color:#777777;
+}
+
+.navbar a {
+  color:#fff;
+  font-size:14px;
+}
+
+.navbar-bold.affix {
+  background-color:#d46054;
+}
+
+.navbar-bold {
+  background-color:#f68076;
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.navbar-bold li a:hover, .navbar-bold li.active {
+  background-color:#d46054;
+}
+
+.navbar-inverse{
+
+line-height: 0px;
+filter: none;
+color: #FFF;
+background: rgba(65, 137, 146, 0.5);
+}
+
+.nav {
+    color: #FFF;
+ }
+    
+.header h1 {
+  font-size:40px;
+  -webkit-text-stroke: 1px rgba(f,f,f,0.1);
+  
+  color:#fff;
+  margin-left:-5px;
+  margin-bottom:5px;
+  text-transform:uppercase;
+}
+
+.header .lead {
+  color:#d46054;
+  font-size:25px;
+
+}
+
+#video_player_box div{
+background: #000;
+margin: 10px auto;
+}
+
+
+.header {
+  height: 350px;
+ /* background: #f68076 url('http://www.bootply.com/assets/example/pt_topo_l.png') repeat center center fixed;
+ */
+ /*background: #2e5765; */
+ background-image: url(.gif);
+/* background-image: url("../media/7.jpg"); */
+ 
+}
+
+/* use alt in navbar and header for different color */
+
+
+.alt {
+  background-color: #2e5765;
+}
+
+.alt .lead {
+  color: #3B0496;
+   
+}
+
+.alt.affix {
+  background-color:#4C06AB;
+}
+
+.alt li a:hover, .alt li.active {
+  background-color:#5D17BA;
+}
+
+
+
+.blurb {
+  padding: 120px 0;
+  background-color:#fefefe;
+
+}
+
+
+.blurb .panel {
+  background-color:transparent;
+}
+
+.bright {
+  background: #dbdbdb url('/static/media/pt_topo.png') repeat center center fixed; 
+  color:#ffffff;
+}
+
+.featurette {
+  background: #222334;
+  padding: 50px 0;
+  color: #ffffff;
+}
+
+.featurette-item {
+  margin-bottom: 15px;
+}
+
+.featurette-item > i {
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 56px;
+  width: 140px;
+  height: 140px;
+  line-height: 136px;
+  vertical-align: middle; 
+  text-align: center;
+}
+
+.featurette-item > i:hover {
+  font-size: 68px;
+}
+
+.callout {
+  color: #ffffff;
+  padding-top:7%;
+  height: 100%;
+  width: 100%;
+  background: url('/static/media/bg_suburb.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.gallery {
+  padding: 50px 0;
+}
+
+.call-to-action {
+  background: #eeeeee;
+  padding: 50px 0;
+}
+
+.call-to-action .btn {
+  margin: 10px;
+}
+
+footer {
+  padding: 100px 0;
+}
+
+div.bk{
+     color: #050000;
+}
+div.justified {
+        display: flex;
+        justify-content: center;
+        color: #050000;
+    }
+div.justifiedR {
+        display: flex;
+        float:right;
+        color: #050000;
+    }
+div.justifiedT {
+        display: flex;
+        justify-content: center;
+        color: #FFFCFC;
+            }
+div.justifiedBT {
+        display: flex;
+        justify-content: center;
+        color: #000000;
+}
+    .bs-example{
+	margin: 20px;
+}
+.open-modal{
+	width: 200px;
+	position: absolute;
+	margin: 0 auto;
+	top: 20px;
+	right: 0;
+	left: 0;
+}
+ 
+div.myerr{
+        display: flex;
+        
+        color: #ff0000;
+}
+.video-js {padding-top: 0%}
+.vjs-fullscreen {padding-top: 0px}
+.vjs-text-track-display{visibility: hidden}
+.videocontent {
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    background-color:transparent;
+
+}
+
+
+/* -- end custom css for Bootstrap 3.x --*/
+
+.video-section .pattern-overlay {
+background-color: rgba(71, 71, 71, 0.59);
+padding: 110px 0 32px;
+min-height: 496px; 
+/* Incase of overlay problems just increase the min-height*/
+}
+.video-section {
+text-align:center;
+color:#fff;
+background-image: url('/static/media/bcvid.png');
+}  
+.video-section h1, .video-section h3, {
+text-align:center;
+color:#fff;
+}           
+.video-section h1{
+ font-size:40px;
+  -webkit-text-stroke: 1px rgba(f,f,f,0.1);
+  
+  color:#fff;
+  margin-left:-5px;
+  margin-bottom:5px;
+  text-transform:uppercase;
+
+}
+.video-section h3{
+font-size: 25px;
+font-weight:lighter;
+margin: 0px auto 15px;
+}
+.video-section .buttonBar{display:none;}
+.player {font-size: 1px;}
+
+#dropzone {
+  position: relative;
+  border: 10px dotted #FFF;
+  border-radius: 20px;
+  color: white;
+  font: bold 24px/10px arial;
+  /*height: 200px;*/
+  margin: 30px auto;
+  text-align: center;
+  /*width: 200px; */
+}
+#dropzone.hover {
+  border: 10px solid #FE5;
+  color: #FE5;
+}
+
+

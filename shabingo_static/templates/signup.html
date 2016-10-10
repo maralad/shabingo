@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The webs marketplace for selling online streaming video content. Free to register and low commission rates">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <meta name="twitter:card" content="https://shabingo.com/static/media/Slogan1.png">
+    <meta name="twitter:site" content="@Shabingo1">
+    <meta name="twitter:title" content="{{document.name}}">
+    <meta name="twitter:description" content="{{ document.description }}">
+    <meta name="twitter:creator" content="{{document.usersname}}">
+    <meta name="twitter:image:src" content="https://shabingo.com/static/media/{{ document.docfile2.name }}/250/250">
+    <meta name="twitter:domain" content="Shabingo.com">
+<meta name="google-site-verification" content="G4pzTz7squpm4drd3RBQibQfIYlS3yjPwUMAJTp2BpU" />
+    
+    <title>The webs marketplace for streaming videos</title>
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+     
+    <!-- Custom styles for this template -->
+   <link href="/static/css/custom2.css" rel="stylesheet">
+    
+        <!-- Custom	CSS -->
+ <link href='https://fonts.googleapis.com/css?family=Buenard:700' rel='stylesheet' type='text/css'>
+
+      
+      
+      <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" />
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="/static/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]-->
+                        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+ 
+    
+    
+<link href="https://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/4.9/video.js"></script>      
+<script>
+  videojs.options.flash.swf = "/static/video-js/video-js.swf"
+</script>
+    
+                                                      
+
+
+      
+    <style>
+    
+
+
+.video-js { width: auto; height: auto; padding-top: 56.25%; padding-bottom:6%;  }
+.vjs-fullscreen {padding-top: 0px}
+
+</style>
+<script type="text/javascript">
+var a2a_config = a2a_config || {};
+a2a_config.linkname = "Shabingo";
+a2a_config.linkurl = "https://shabingo.com";
+//<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+
+
+   
+</script>
+<script type='text/javascript' data-cfasync='false' src='//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js' data-shr-siteid='7c1ca232a4e20b2114b1e4f1419bae24' async='async'></script>
+  </head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   <!--<script src="/static/js/jquery-1.10.2.min.js"></script>-->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/YTPlayer.js"></script>
+     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+  <div class="container">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Home</a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav">
+        <li> <a href='{% url "videos" %}'>Videos</a></li>
+         
+        <li> <a href='{% url "loggedin2" %}'>Get Started</a></li>
+        <li> <a href='{% url "loggedin2" %}'>My Shabingo</a></li>
+        <li><a href="#sec2">Niche Content</a></li>
+        <li><a href="#sec3">Content Creators</a></li>
+      
+        <li> <a href='{% url "aboutus" %}'>About Us</a></li>
+        <li><a href='{% url 'contact' %}'>Contact Us</a></li>
+       
+      </ul>
+    </div>
+   </div>
+</div>
+
+ <section class="content-section video-section">
+  <div class="pattern-overlay">
+   
+    <a id="bgndVideo" class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=SEtTShWDbd8',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+    <!--<a id="bgndVideo" class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=FYmJonPADKI',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>-->
+
+    <div class="container">
+    
+      <div class="row">
+        <div class="col-lg-12">                 
+         <img   src="/static/media/ShabingoTransMd.png" alt="Shabingo!!" align="middle"> <br>
+         
+     <a class="btn btn-danger btn-lg"  href='{% url "videos" %}'>Browse Videos <span class="glyphicon glyphicon-play" aria-hidden="true"></span></a>
+ 
+   <a class="btn btn-default btn-lg"  href='{% url "upload" %}'>Upload Videos <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span></a>
+                                                     <p></p>
+                                      <h1>Get paid for your videos</h1>                                      
+                                      
+                                       <h3>Zero Commission! Free Service!</h3>
+ <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img src="/static/media/FBookHomeD.png"></a>
+ <!--TODO ADD DROPZONE FUNCTIONALITY HERE LIKE https://shabingo.com/signup2 -->
+     
+	   </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="sec1" class="blurb">
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+                 
+              <h1>Upload your video creations</h1>
+              <h4>If viewers like your preview they can pay or share to see the full Shabingo</h4>
+              
+                 <a href='{% url "loggedin2" %}' alt="Connect to Stripe" align="middle" ><img src="/static/media/blue-on-dark@2x.png"></img>  </a><script language="JavaScript" type="text/javascript">
+TrustLogo("https://shabingo.com/static/media/comodo_secure_100x85_transp.png", "CL1", "none");
+</script> 
+	      <br/>
+         <div class="col-md-8" align='left'>
+<div class="list-group">
+ <h3> <a href="#" class="list-group-item active">
+    More Information ...
+  </a>                                        </h3>
+     <h4>
+  <a href='{% url "aboutus" %}' class="list-group-item">How it works?</a>
+  <a href='{% url "aboutus" %}' class="list-group-item">Commission rates</a>
+    <a href='https://shabingo.com/the-best-place-to-sell-your-video-content-online' class="list-group-item">Latest Blog Post</a>
+    </h4>
+</div>
+</div>
+        
+        <!-- <a class="btn btn-danger btn-lg"  href="#sec5">Get Started <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
+         -->
+         
+      </div>
+     
+        <div class="container">
+    <div class="row">
+      <div class="col-sm-4 text-center">
+<!-------------->
+      <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
+  controls video preload width="550" height="364"
+poster="/static/media/posterZero.png" 
+  data-setup='{"example_option":true}'>
+ <source src="/static/media/ShabingoZeroCommission.mp4" type='video/mp4' />
+ <source src="/static/media/ShabingoZeroCommission.webm" type='video/webm' />
+ <source src="/static/media/ShabingoZeroCommission.ogv" type='video/ogg' />
+</video>
+              <h2 align="left">New Feature ...</h2>
+              <h3 align="left">Set whether you want to give users the choice to pay by sharing your preview on Facebook</h3>
+              <img   src="/static/media/shareGif.gif" alt="Shabingo New Feature for getting paid by sharing on Facebook" align="middle"> <br>
+
+
+<!------/static/media/ShabingoMovie9.mp4-------->
+      </div>
+      
+    </div>
+   
+  </div>
+        <!--<img   src="/static/media/clarityIcon2.png" alt="Clarity Viewing!!" align="right">  -->             
+                                                                                                        
+                                                                                                              
+    </div>                                                                                                    
+  </div>                                                                                                      
+</div>                                                                                                        
+                                                                                                              
+<div class="featurette" id="sec2">                                                                            
+  <div class="container">                                                                                     
+    <div class="row">                                                                                         
+      <div class="col-md-12 text-center">                                                                     
+        <h1><i>Videos for all niches</i></h1>                                                                        
+      </div>
+    </div>
+    <div class="row">                                                                                         
+      <div class="col-md-2 col-md-offset-2 text-center">                                                      
+        <div class="featurette-item">                                                                         
+          <i class="icon-rocket"><span class="glyphicon glyphicon-pencil"></span></i>                         
+          <h4><i>Tutorials</i></h4>                                                                                  
+          <p>Find tutorials for all Professions and skills.</p>                                               
+        </div>                                                                                                
+      </div>                                                                                                  
+      <div class="col-md-2 text-center">                                                                      
+        <div class="featurette-item">                                                                         
+          <i class="icon-magnet"><span class="glyphicon glyphicon-question-sign"></span></i>                  
+          <h4><i>How to</i></h4>                                                                                     
+          <p>Learn niche skills. Upload your own and get paid.</p>                                            
+        </div>                                                                                                
+      </div>                                                                                                  
+      <div class="col-md-2 text-center">                                                                      
+        <div class="featurette-item">                                                                         
+          <i class="icon-shield"><span class="glyphicon glyphicon-film"></span></i>                           
+          <h4><i>Movies</i></h4>                                                                                     
+          <p>Browse uploaded trailers. Discover new Movie Makers.</p>                                         
+        </div>                                                                                                
+      </div>                                                                                                  
+      <div class="col-md-2 text-center">                                                                      
+        <div class="featurette-item">                                                                         
+          <i class="icon-pencil"><span class="glyphicon glyphicon-headphones"></span></i>                     
+          <h4><i>Music</i></h4>                                                                                      
+          <p>Browse new music videos. Discover new talent.</p>                                                
+        </div>                                                                                                
+      </div>                                                                                                  
+    </div>                                                                                                    
+  </div>                                                                                                      
+</div>                                                                                                        
+                                                                                                              
+<div class="callout" id="sec3">                                                                               
+  <div class="vert">                                                                                          
+    <div class="col-md-12 text-center"><h2>A place where Niche Content Creators Flourish </h2></div>          
+    <div class="col-md-12 text-center">&nbsp;</div>                                                           
+    <div class="col-md-8 col-md-offset-2 text-center">                                                        
+      <div class="row hidden-xs">                                                                             
+      <div class="col-sm-2"><img class="img-circle grayscale" src="static/media/12.jpg"></div>                
+       <div class="col-sm-2"><img class="img-circle grayscale" src="static/media/95.jpg"></div>               
+       <div class="col-sm-2"><img class="img-circle grayscale" src="static/media/67.jpg"></div>               
+       <div class="col-sm-2"><img class="img-circle grayscale" src="static/media/27.jpg"></div>               
+       <div class="col-sm-2"><img class="img-circle grayscale" src="static/media/15.jpg"></div>               
+       <div class="col-sm-2"><img class="img-circle grayscale" src="static/media/18.jpg"></div>
+      </div>                                                                                                  
+    </div>                                                                                                    
+  <div class="col-md-12 text-center">&nbsp;</div>                                                             
+ <h1></h1>                                                                                                    
+  <div class="col-md-12 text-center"><h4>Great to assist both branding awareness and for making money! Love it!</h4>
+  <p>Brenda Cassidy, Director @ Zoomboomkids</a></p></div>                                                    
+   <div class="col-md-12 text-center"><h4>The potential for everyone to get something out of their content, which in turn, creates motivation or effort to produce more.</h4>
+  <p>Jack Kirbit of Squashbill </p></div>                                                                     
+   <div class="col-md-12 text-center"><h4>Lots of profit to be had. Niche content is now powerful. And I am one of the first</h4>
+  <p> Lori Hanover of Reflections</p></div>                                                                   
+  </div>
+</div>                                                                                                        
+                                                                                                              
+<div class="blurb" id="sec4">                                                                                 
+  <div class="container">                                                                                     
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>Watch clean, quality video content uncluttered without adverts</h1>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="gallery">
+  
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <h5>Niche content creators, present your videos on a platform where viewers value your content.</h5>
+        <h2>Content Galore</h2>
+        <br>
+      </div>
+  </div>
+  
+  <div class="container well well-lg">
+    
+    <div class="row">
+    		
+      	<div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-film"><span class="glyphicon glyphicon-pencil"></span></i></span> Tutorials</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-folder-close-alt"></i><span class="glyphicon glyphicon-question-sign"></span></span> How to videos?</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-credit-card"></i><span class="glyphicon glyphicon-heart-empty"></span></span> Sports Instructional Videos</a>
+          </div>
+        </div>
+        
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-align-justify"><span class="glyphicon glyphicon-headphones"></span></i></span> Exclusive/ official Music Videos</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-reorder"><span class="glyphicon glyphicon-heart-empty"></span></i></span> Yoga Instructional Videos</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-mobile-phone"><span class="glyphicon glyphicon-pencil"></span></i></span> Courses</a>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-list-alt"><span class="glyphicon glyphicon-volume-up"></span></i></span> Recorded Concerts / Seminars</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-check"><span class="glyphicon glyphicon-film"></span></i></span> Movies</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-table"><span class="glyphicon glyphicon-facetime-video"></span></i></span> Short Movies</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-eye-open"><span class="glyphicon glyphicon-film"></span></i></span> Indie Movies</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-th"><span class="glyphicon glyphicon-film"></span></i></span> Foreign Movies</a>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="text-success"><i class="icon-font"><span class="glyphicon glyphicon-headphones"></span></i></span> Music Videos</a>
+          </div>
+        </div>      
+    </div>
+  </div>
+</div>
+
+
+
+<div class="blurb bright">
+  
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <h1>Shabingo's most killer feature...</h1>
+        <h2>Provide or request video content</h2>
+        <br>
+      </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-2">
+         <div class="panel panel-default">
+         <div class="panel-heading text-center"><h2><i class="icon-chevron-left"></i>Request any content</h2></div>
+         <div class="panel-body text-justified">When you register at Shabingo you can
+         upload, search and view content. If you do not find the content you are looking for
+         you can make a request for that content. Content creators can then compete for your buisiness and upload previews.
+         This way the best most relevant content will always be
+         at the forefront of Shabingo.
+            <div class="row">&nbsp;</div>
+          <a class="btn btn-lg btn-primary btn-block"  href='{% url "reg" %}'>Sign up</a> 
+          </div>
+         </div>
+ 	</div>
+    <div class="col-sm-4 ">
+         <div class="panel panel-default">
+         <div class="panel-heading text-center"><h2> <i class="icon-chevron-right"></i>Provide Content</h2></div>
+         <div class="panel-body text-justified">If you have not already uploaded some videos it
+         couldn't be easier. Just log in and get started. If its for viewing purposes you are
+         interested in Shabingo whether its entertainment or niche knowledge there is always
+         someone out there that has more knowledge than you. So dont forget you can always request it.
+           <div class="row">&nbsp;</div>
+          <a class="btn btn-lg btn-primary btn-block"  href='{% url "upload" %}'>Login</a> 
+           
+          </div>
+         </div>
+ 	</div>
+  </div>
+</div>
+<!--
+<div class="blurb" id="sec5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 text-center">
+               
+ <table id="signupdis" class="table table-condensed" style=" background: #f68076 url('static/media/pt_topo_l.png') repeat center center fixed;; color: #FFFfFf;background: #2e5765;
+ width: 100%;" cellpadding="10" cellspacing="10" align="center">
+    <thead>
+      <tr>
+        
+          
+	 <form   action="{% url "home" %}" method="post" enctype="multipart/form-data" >{%csrf_token%}
+	<th style="padding: 3px; margin-right: 3px;">
+
+
+            <h5>{{ form.non_field_errors }}</h5>
+                 <div class="justifiedT" >
+                <h4><strong>Get Started <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></strong></h4>
+                </div>
+        </th>
+      </tr>
+    </thead>
+    <body>
+     <tr>
+      <td>
+                <div class="justifiedT">
+                <h4>User Name</h4>
+                </div>
+		<div class="myerr"> {{ form.username.error.as_text }}</div>
+                <div class="justified">
+                
+                {{ form.username }}
+                </div>
+                <div class="justifiedT">
+                <h4>Email</h4>
+		
+		</div>
+		<div class="myerr">{{ form.email.error.as_text }}</div>
+                <div class="justified">
+                 
+                {{ form.email }}
+		</div>
+                
+		<div class="justifiedT">
+                <h4>Password</h4>
+                </div>
+		<div class="myerr">{{ form.password1.error.as_text }}</div>
+                <div class="justified">
+                 
+                {{ form.password1 }}
+                </div>
+                <div class="justifiedT">
+                <h4>Password confirmation</h4>
+                </div>
+                  
+                <div class="justified">
+                 
+                {{ form.password2 }}
+                </div>
+
+<h4></h4>
+	    <input type="submit" class='btn btn-default btn-block' value="Submit">
+         
+   </td>
+
+      </tr>
+     
+     
+    </tbody>
+ </table>
+
+        <p class="lead"></p>
+      </div>
+    </div>
+  </div>
+</div>
+    -->
+                 
+
+<footer>
+ <hr>
+  <div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+     
+     
+<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+<a class="a2a_dd" href="https://www.addtoany.com/share_save?linkurl=http%3A%2F%2Fshabingo.com&amp;linkname=Shabingo"></a>
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_twitter"></a>
+<a class="a2a_button_google_plus"></a>
+<a class="a2a_button_pinterest"></a>
+<a class="a2a_button_reddit"></a>
+</div>
+    </div>
+            
+         <div class="col-md-1"></div>
+         <div class="col-md-4">
+          <h5><strong><br>Contact us</strong></h5>
+        <p>
+
+<a href="mailto:info@shabingo.com?Subject=Hello%20again" target="_top">General inquiries</a>
+<br>
+
+<a href="mailto:investors@shabingo.com?Subject=Hello%20again" target="_top">Investors</a>
+</p>
+        <p><br>Shabingo 2015</p>
+         <script language="JavaScript" type="text/javascript">
+TrustLogo("https://shabingo.com/static/media/comodo_secure_100x85_transp.png", "CL1", "none");
+</script>
+         </div>
+      <div class="col-md-3">
+        
+          <div class="fb-like" data-href="https://developers.facebook.com/shabingo" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+           <div >
+		  <a href="https://twitter.com/shabingo1" class="twitter-follow-button" data-show-count="false" data-size="large" data-show-screen-name="false">Follow @shabingo1</a>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+    <div class="col-md-3"></div>      
+    
+      </div>
+      
+        
+</div>
+  </div>
+   </div>
+                          <script>   
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60179558-1', 'auto');
+  ga('send', 'pageview');
+                          </script>
+           
+        
+           
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+<ul class="nav pull-right scroll-down">
+  <li><a href="#" title="Scroll down"><i class="icon-chevron-down icon-3x"></i></a></li>
+</ul>
+<ul class="nav pull-right scroll-top">
+  <li><a href="#" title="Scroll to top"><i class="icon-chevron-up icon-3x"></i></a></li>
+</ul>
+</body>
+</html>
+<script>
+$(document).ready(function () {
+
+    $(".player").mb_YTPlayer();
+    console.log('Are we doing it?');
+
+});
+</script>

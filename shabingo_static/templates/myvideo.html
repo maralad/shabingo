@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+<link href="http://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+
+
+<script src="http://vjs.zencdn.net/4.9/video.js"></script>
+
+  
+<style>
+.jssocials-share-link { border-radius: 50%; }
+
+#video_player_box div{height: 30px; border: none; width: "550"; background:#000; margin:0px auto;}
+
+.video-js { width: auto; height: auto; padding-top: 48%; padding-bottom:9%; border-bottom-style:hidden; bottom:0px;  }
+.vjs-fullscreen {padding-top: 0px}
+.vjs-text-track-display{visibility: hidden}
+
+  ul {         
+          padding:0 0 0 0;
+          margin:0 0 0 0;
+      }
+      ul li {     
+          list-style:none;
+          margin-bottom:25px;           
+      }
+      ul li img {
+          cursor: pointer;
+      }
+      
+</style>
+
+{%block jumbotron %}
+
+
+{% if not user.is_anonymous %}
+                                     
+
+      <div class="jumbotron">
+      <div class="container">        
+      <div>
+    <!-- //-->
+    {% csrf_token %}
+    {% if document %}
+    	   {{ django|title }}
+          <table>
+          	<tr>
+          		<td>
+          <h4>
+          <div class="container">
+         <div  class='col-sm-8' id="video_player_box"  >
+      	 <div class="wrapper">
+      	    <div class="videocontent">
+      	    <video id="MY_VIDEO_1"  class="video-js vjs-default-skin vjs-big-play-centered" controls  onended="fullMod()"
+                           preload="auto" autoplay="True" width="750"dpi height="464"dpi style= "border:10px;"
+                          {% if document.docfile2.url != "" %}
+                           poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                          {% endif %}                   
+                           data-setup="{}">
+                          <source src="{{ document.docfile.url }}">{{ document.docfile.name }}" type='video/mp4'>
+      		    <source src="{{ document.docfile.url }}">{{ document.docfile.name }}" type='video/webm' />
+                          <source src="{{ document.docfile.url }}">{{ document.docfile.name }}" type='video/ogg' />
+                          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                          </video>
+      	    </div>
+      	  </div>
+          </div>
+        {% if document.docfile.url != "" %}
+            <script>
+        	   document.title = "{{ document.name }}";
+            </script>
+        
+            <h1>{{ document.name }}</h1>
+            <h4></h4>
+        {% endif %}
+		
+        {% if document.docfile.description != "" %}
+		        <h3>{{ document.description }}</h3>
+	      {% endif %}
+            </td>
+	           </tr>
+            <div id="share"></div>
+
+    <!--//<script src=""/static/js/jquery.js"></script>              -->
+            <script src="/static/js/jssocials.min.js"></script>
+
+       
+            </table>
+    {% else %}
+        <h3>No Video found</h3> 
+    {% endif %}
+
+
+    {% if user.is_anonymous %}
+        <div class= 'col-md-12' ><h1></h1></div>
+        <div class= 'col-md-4' style='text-align: left'>
+     
+        <ul style="list-style-type: none;">
+          <li>
+          </li><p><a class="btn btn-default btn-lg" role="button" href='{% url "login" document.id %}'>Login / register</a></p> 
+        </li>
+     
+        <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+        </li>
+        <li>
+     
+        <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+  
+
+        </ul>
+        </div>
+        </ul>
+         </p>
+         </div>
+        </div>
+    
+      {% endif %}
+  
+   
+      <div>
+        
+      </div>
+      </div>
+   
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+
+{% endblock %}

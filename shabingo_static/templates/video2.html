@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+<link href="http://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/css/rrssb-master/scss/rrssb.css"/>
+
+
+<script src="http://vjs.zencdn.net/4.9/video.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/static/css/rrssb-master/js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
+<script src="/static/css/rrssb-master/js/rrssb.min.js"></script>
+<style>
+.jssocials-share-link { border-radius: 50%; }
+
+#video_player_box div{height: 30px; border: none; width: "550"; background:#000; margin:0px auto;}
+
+.video-js { width: auto; height: auto; padding-top: 48%; padding-bottom:9%; border-bottom-style:hidden; bottom:0px;  }
+.vjs-fullscreen {padding-top: 0px}
+.vjs-text-track-display{visibility: hidden}
+
+  ul {         
+          padding:0 0 0 0;
+          margin:0 0 0 0;
+      }
+      ul li {     
+          list-style:none;
+          margin-bottom:25px;           
+      }
+      ul li img {
+          cursor: pointer;
+      }
+      
+</style>
+
+
+
+
+
+
+{%block jumbotron %}
+
+
+
+
+
+  <div id="fullModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color:#075c78">
+                <div class="modal-header"  style="background-color:#808080">
+                    <button type="button" id="modbut" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" style="color: white; font: italic">Preview clip over</h4>
+                </div>
+                <div class="modal-body">
+                    <h2 style="color:white;">Do you want to see the full Shabingo?</h2>
+	{% if not user.is_anonymous %}
+                    <h4 style="color:#EBF0EF">{{document.price}} Euro to get unlimited access to the full video...</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"  data-dismiss="modal">Cancel</button> &nbsp;&nbsp;
+                    <div style="float: right"> <button id="customButton">Purchase</button></div>
+                    <h4>Or share this preview to get unlimited streaming access</h4>
+                    
+	{% else %}
+		<h4 style="color:#EBF0EF">Please log in to get unlimited access to this video...</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary btn-sm" role="button" href='{% url "login" %}'>Log in/ Register</a>
+	{%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <div class="jumbotron">
+      <div class="container">        
+        <div>
+    <!-- //-->
+{% csrf_token %}
+{% if document %}
+	{{ django|title }}
+<table>
+	<tr>
+		<td>
+<h4>
+<div class="container">
+   <div  class='col-sm-8' id="video_player_box"  >
+	<div class="wrapper">
+	    <div class="videocontent">
+	    <video id="MY_VIDEO_1"  class="video-js vjs-default-skin" controls  onended="fullMod()"
+                    preload="auto" autoplay="True" width="1500"dpi height="100"dpi style= "border:10px;"
+                    {% if document.docfile2.url != "" %}
+                     poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                    {% endif %}                   
+                     data-setup="{}">
+                    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }}" type='video/mp4'>
+		    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }}" type='video/webm' />
+                    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }}" type='video/ogg' />
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+	    </div>
+	  </div>
+    </div>
+    {% if document.docfile.url != "" %}
+<script>
+	document.title = "{{ document.name }}";
+</script>
+		<h1>{{ document.name }}</h1>
+    <h4></h4>
+        {% endif %}
+		
+        {% if document.docfile.description != "" %}
+		<h3>{{ document.description }}</h3>
+	{% endif %}
+            </td>
+	</tr>
+            <div id="share"></div>
+
+    <!--//<script src=""/static/js/jquery.js"></script>              -->
+    <script src="/static/js/jssocials.min.js"></script>
+
+       
+</table>
+       
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'shabingo'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+ 
+</div>
+
+        
+        
+{% else %}
+             <h3>No Video found</h3> 
+{% endif %}
+
+
+{% if user.is_anonymous %}
+  <div class= 'col-md-12' ><h1></h1></div>
+     <div class= 'col-md-4' style='text-align: left'>
+     
+     <ul style="list-style-type: none;">
+          <li>
+          </li><p><a class="btn btn-default btn-lg" role="button" href='{% url "login" %}'>Login / register</a></p> 
+        </li>
+     
+    <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+     </li>
+     <li>
+     
+        <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+  
+
+     </ul>
+     </div>
+     </ul>
+ </p>
+ </div>
+</div>
+    
+{% endif %}
+  
+   
+    <div>
+        
+      </div>
+    </div>
+   
+<script>
+$(document).ready(function(){
+
+ var display_price = {{document.price}} *100;
+  var handler = StripeCheckout.configure({
+    key: 'pk_live_ozJCbLr9V7Qg7aXJlQyWrmTJ',
+    image: 'https://s3.amazonaws.com/stripe-uploads/acct_17ZJEAHzkZxBDtDhmerchant-icon-1454242744249-FBShabingoNew.png',
+    locale: 'auto',
+    token: function(token) {
+    console.log('token id = '+token.id);
+    console.log('document.id ='+{{document.id}});
+     $('#fullModal').hide();
+    /////////////////////////
+     $.ajax({
+        type: "POST",
+        url:'{% url "stripe_pay" %}',
+        data: { 'stripeToken':token.id,
+        'description':'{{document.name}}',
+        'doc_id':'{{document.id}}',
+        'price':'{{document.price}}',
+        'seller':'{{document.usersname}}',
+        'buyer':{{user.id}}},
+        
+        success: function(data){
+        console.log('data ='+data);      
+          
+        if (data=='Success'){
+            //alert('Congratulations you have successfully purchased your video. Please go to <a href="https://shabingo.com/myvideos">My Videos</a> to get unlimited access to it.')
+        window.location.replace("https://shabingo.com/myvideos/");
+        }
+        if(data!='Success'){
+            alert('Sorry the transaction did not go through, You have not been charged anything tor this. Reason... '+data);
+            window.location.replace(window.location.href);
+        }
+        },
+                
+      });
+      //////////////////////
+    
+    }
+  });
+  
+  $('#customButton').on('click', function(e){
+    // Open Checkout with further options
+    handler.open({
+      name: 'Shabingo',
+      description: '{{document.name}}',
+      currency: "eur",
+      amount: display_price
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+   
+  //  $('.rrssb-buttons').rrssb({
+  //   // required:
+  //   title: '{{document.name}}',
+  //   url: 'https://shabingo.com/video2/'+'{{document.id}}',
+  //   image:'{{ document.docfile2.url }}',
+  //   // optional:
+  //   description: '{{document.description}}',
+  //   emailBody: '{{document.description}}'
+  // });
+});
+        
+</script>
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+
+{% endblock %}

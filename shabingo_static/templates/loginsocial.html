@@ -1,0 +1,38 @@
+
+{% extends 'base.html'%}
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container">
+ <div>
+ 
+ <div class= 'col-sm-12' style='text-align: left'>
+    
+ <p>
+   <ul>
+   {% if user and not user.is_anonymous %}
+     <li>
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+     </li>
+     <li>
+       <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+     </li>
+   {% else %}
+     <h3>Login</h>
+     <li>
+        <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/googRed.png"></a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+     </li>
+   {% endif %}
+   </ul>
+ </p>
+ </div>
+   
+    <div>
+{% endblock %}

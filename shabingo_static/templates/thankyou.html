@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+<h2> Thank you. For registering</h2>
+  </div>
+  <div class= 'col-sm-5'></div>
+  <div class= 'col-sm-4' >
+  {% if form.errors %}
+        <p class="error">Sorry, That is not a valid Username or Password</p>
+    {% endif %}
+    <h3 style="color: white">Sign in</h3>
+   <form action="/accounts/auth/" method="post" style="float: left;">{% csrf_token %}
+        <label for="username" style="color: white">User name:</label>
+        <div class="bk"><input type="text" name="username" value="" id="username"></div>
+          <h4></h4>
+        <label for="password" style="color: white">Password:</label>
+        <div class="bk"><input type="password" name="password" value="" id="password"></div>
+        <h4></h4>
+        <input type="submit" value="Login" style="float: left;"/>
+               
+     
+       </form>
+   
+
+</div>
+
+{% endblock %}

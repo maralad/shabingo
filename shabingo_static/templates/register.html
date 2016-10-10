@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container" >
+        
+
+  	
+			<div class='col-sm-3' style="color: #FFFfFf; background: rgba(192,192,192,0.1);">
+<form   action="{% url "register" %}" method="post" >
+	
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.as_table }}
+   <p> {{form.password1.errors.as_text}}</p>
+    <p>{{form.password2.error_messages}}</p>
+ 
+    <input type="submit" value="Submit" />
+</form>
+
+</div>
+</div>
+
+   
+			
+		
+			
+{% endblock %}
+
+	
+		
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+     </div>
+<
+
+{% endblock %}

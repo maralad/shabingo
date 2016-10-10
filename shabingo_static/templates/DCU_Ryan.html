@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+<link href="//vjs.zencdn.net/4.9.0/video-js.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/4.9.0/video.js"></script>
+
+<style>
+.video-js {padding-top: 56.25%}
+.vjs-fullscreen {padding-top: 0px}
+.vjs-text-track-display{visibility: hidden}
+</style>
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container" >
+          
+        
+         <div class='col-md-4'>
+  <ul style="list-style-type:none">
+   {% if user and not user.is_anonymous %}
+        <p><a class="btn btn-primary btn-lg" role="button"href='{% url "loggedin" %}'>Search for Videos</a></p>
+     <li>
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+     </li>
+     <li>
+      <p><a class="btn btn-primary btn-xs" role="button" href='{% url "logout" %}'>Log out &raquo;</a></p> 
+
+     </li>
+   {% else %}
+	<H3></H3>
+     <li>
+     <p>Upload your videos and get paid.</p>
+    </li>
+	<li>
+	<p>Register Now.</p>
+    </li>
+      <li>
+    <p> <a style='text-align: left' class="btn btn-primary" role="button" href='{% url "login" %}'>Sign in &raquo;</a> <a class="btn btn-primary" role="button" href='{% url "reg" %}'>Register &raquo;</a>
+    </li>
+    
+      <a style='text-align: left' href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+      <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+      
+     </p>
+   {% endif %}
+   </ul>
+</div>
+	<div class='col-md-1'>
+	</div>
+     <div class='col-md-4'>   
+     <div  class="videocontent">
+       
+	<h4> DCU Ryan Academy Video Application</h4>
+	  <video id="MY_VIDEO_1"  class="video-js vjs-default-skin" controls
+   preload="auto" width="500" height="400"  poster="/static/media/poster2.png"
+ data-setup="{}">
+ <source src="/static/media/ShabingoDCURyan1.mov" type='video/mp4' />
+  <source src="/static/media/ShabingoDCURyan1.webm" type='video/webm' />
+ <source src="/static/media/ShabingoDCURyan1.mov.ogv" type='video/ogg' />
+ <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+</video>
+         
+
+ </div>
+    
+ </div>
+            
+     
+    
+       
+      </div>
+    
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+
+{% endblock %}

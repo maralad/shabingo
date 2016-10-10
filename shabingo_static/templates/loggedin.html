@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container">
+        
+        
+       <div class="featurette" id="sec2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h2>My Shabingo</h2>
+        <h4>Hi  {{full_name}} ! </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 col-md-offset-2 text-center">
+         <a href='{% url "upload" %}'> 
+        <div class="featurette-item">
+        <i class="icon-rocket"><span class="glyphicon glyphicon-cloud-upload" style="color: white"></span></i>
+         <h2 ><strong>Upload</strong></h2>
+          <p style="color: white">Start making money today.</p>
+        </div>
+        </a>
+      </div>
+      <div class="col-md-2 text-center">
+         <a href='{% url "myvideos" %}'> 
+        <div class="featurette-item">
+          <i class="icon-magnet"><span class="glyphicon glyphicon-facetime-video" style="color: white"></span></i>
+          <h2><strong>My Videos</strong></h2>
+          <p style="color: white">Watch the videos you have bought</p>
+        </div>
+         </a>
+      </div>
+      <div class="col-md-2 text-center">
+         <a href='{% url "videos" %}'>
+        <div class="featurette-item">
+          <i class="icon-shield"><span class="glyphicon glyphicon-film" style="color: white"></span></i>
+          <h2><strong>Browse</strong></h2>
+          <p style="color: white">Browse uploaded videos.</p>
+        </div>
+         </a>
+      </div>
+      <div class="col-md-2 text-center">
+         <a href='#'>
+        <div class="featurette-item">
+          <i class="icon-pencil"><span class="glyphicon glyphicon-pencil" style="color: white"></span></i>
+          <h2><strong>Profile </strong></h2>
+          <p style="color: white">Edit my Profile</p>
+        </div>
+         </a>
+      </div>
+    </div>
+  </div>
+</div>
+       <div class="col-md-12 text-center">
+        
+
+    {% if not user.is_anonymous %}  
+      
+	<div  class='col-lg-2 col-md-2 col-sm-2 col-xs-2' > <h4></h4></div>
+		<div class='col-md-8'>
+		    
+ <div class="panel panel-primary" id ="checklist" style=" color: #FFFfFf; background: rgba(192,192,192,0.1);" >
+  <div class="panel-heading">
+   
+    <h2 class="panel-title">Check List
+ <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    </h2>
+    </div>
+        <p>             
+1. So you get paid directly by video viewers straight into your banck account you need to have a Stripe payments account. Follow a few very straight forward steps by clicking on the connect to stripe button below
+	</p>
+   
+             
+   <a href='{% url "stripe_auth" %}' alt="Connect to Stripe" align="middle" ><img src="/static/media/blue-on-dark@2x.png"></img>  </a><script language="JavaScript" type="text/javascript">
+TrustLogo("https://shabingo.com/static/media/comodo_secure_100x85_transp.png", "CL1", "none");
+</script> 
+	<h2></h2>
+	<p>
+2. Before uploading your Videos you will need to prepare a seperate video preview clip for each video. So you will be uploading 2 clips at a time.
+This is where you can have some fun getting creative. The aim of the preview clip is to make it complelling enough for the viewer to really want to pay to see your full video clip or the "Full Shabingo".
+</p>
+	<h2></h2>
+	<p>
+3. Please note that the max upload file size for the previews will be 100MB and 600mb for the full clip.
+This will probably change in time but for starters this will be the limited size.
+</p>
+	<h2></h2>
+	<p>
+4.All video Formats are supported. 
+</p>
+	<h2></h2>
+	<p>
+5.You will also be required to upload a poster image to go with the clip. .jpeg or .png are fine Maz size 50mb.
+</p>
+	<h2></h2>
+	<p>
+6. Have fun and get creative!
+</p>
+
+  </div>
+ </div>
+ <div class="col-sm-3">
+          </div>
+     </div>
+      
+      
+{% else %}
+     
+     <div class= 'col-md-4' style='text-align: center'>
+     <h3>Please login First to upload</h3>
+     {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+    {% endif %}
+    {% if form.errors %} 
+        <p class="error">Sorry, That is not a valid Username or Password</p>
+    {% endif %}
+    <div style="float: left;">
+    <p>
+     
+     <form action="/accounts/auth/" method="post" >{% csrf_token %}
+        <label for="username">User name:</label>
+       <div class="bk"> <input type="text" name="username" value="" id="username"></div>
+          <h4></h4>
+        <label for="password">Password:</label>
+        <div class="bk"><input type="password" name="password" value="" id="password"></div>
+        <h4></h4>
+        <input type="submit" class="btn btn-primary btn-default" value="Login" />
+       </form>
+     <h1></h1>
+     
+     </p>
+    <h1></h1>
+     <ul style="list-style-type: none;">
+          <li>
+          </li><p><a class="btn btn-default btn-lg" role="button" href='{% url "reg" %}'>Not a member? Register Here</a></p> 
+        </li>
+     
+    <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+     </li>
+     <li>
+     
+        <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+  
+
+     </ul>
+     </div>
+    
+      {% endif %}
+   </ul>
+ </p>
+ </div>
+   
+    <div>
+        
+      </div>
+    </div>
+{% endblock %} 
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: left'>
+     
+
+<h4>{{full_name}}     </h4>
+ <p><a class="btn btn-primary btn-xs" role="button" href='{% url "logout" %}'>Log out &raquo;</a></p> 
+
+{% endblock %}

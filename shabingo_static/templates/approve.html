@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+
+
+
+{%block jumbotron %}
+
+<div class="jumbotron">
+	<!-- <div class="col-md-12 text-center">
+        
+
+        <h5>In Beta. If you find any, please report bugs to info@shabingo.com. Thank you.</h5>
+  </div> -->
+{% if not user.is_anonymous %}
+  	{% if user.is_superuser %}
+    
+      {% if documents %}
+
+        
+        {% for document in documents %}
+	 <div  class='col-sm-8' id="video_player_box"  >
+	<div class="wrapper">
+	    <div class="videocontent">
+	    <video id="MY_VIDEO_1"  class="video-js vjs-default-skin" controls  onended="fullMod()"
+                    preload="auto" autoplay="True" width="1500"dpi height="100"dpi style= "border:10px;"
+                    {% if document.docfile2.url != "" %}
+                     poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                    {% endif %}                   
+                     data-setup="{}">
+                    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }}" type='video/mp4'>
+		    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }}" type='video/webm' />
+                    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }}" type='video/ogg' />
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+	    </div>
+	  </div>
+    </div>
+     <div  class='col-sm-8' id="video_player_box"  >
+	<div class="wrapper">
+	    <div class="videocontent">
+	    <video id="MY_VIDEO_1"  class="video-js vjs-default-skin" controls  onended="fullMod()"
+                    preload="auto" autoplay="True" width="1500"dpi height="100"dpi style= "border:10px;"
+                    {% if document.docfile2.url != "" %}
+                     poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                    {% endif %}                   
+                     data-setup="{}">
+                    <source src="{{ document.docfile.url }}">{{ document.docfile.name }}" type='video/mp4'>
+		    <source src="{{ document.docfile1.url }}">{{ document.docfile.name }}" type='video/webm' />
+                    <source src="{{ document.docfile1.url }}">{{ document.docfile.name }}" type='video/ogg' />
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+	    </div>
+	  </div>
+    </div>
+
+  <div class="desc">{{ document.name }}</div>
+</div>
+
+		
+
+		
+        {% endfor %}
+       
+
+</div>               
+    {% endif %}
+  {% endif%}
+{% endif%}
+
+
+
+ 
+   
+        
+     
+       
+{% endblock %}
+
+
+{% block content %}
+
+
+
+{% endblock %}

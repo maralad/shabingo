@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+<link href="http://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/4.9/video.js"></script>
+<script>
+    document.getElementById("name").style.background= Black;
+</script>
+
+<script>
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container">
+        
+        
+         <div>
+ 
+    <!-- //-->
+ <h4>Contact Us</h4>
+   <ul>
+   
+        
+        <form  action="{% url "contact" %}" method="post" >
+            {% csrf_token %}<!-- //-->
+            <h4>{{ form.non_field_errors }}</h4>
+            
+              
+                <h5>Subject</h5>
+                {{ form.subject.errors }}
+                {{ form.subject }}
+                
+               <h5>Your Message</h5>
+                {{ form.message.errors }}
+                {{ form.message }}
+              
+               <h5>Your Email</h5>
+                {{ form.sender.errors }}
+                {{ form.sender }}
+                
+                <h5>Send a copy to myself?</h5>
+                {{ form.cc_myself.errors }}
+                {{ form.cc_myself }}
+               
+              
+            <p><input type="submit" value="Submit"  class="btn btn-primary btn-xs"/></p>
+</div>
+        </form>
+        <p></p>
+       
+ 
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+
+{% endblock %}

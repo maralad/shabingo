@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+<link href="http://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/4.9/video.js"></script>
+<script>
+    document.getElementById("name").style.background= Black;
+</script>
+
+<script>
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container">
+        
+        
+        
+         <div  class='col-sm-3' >
+         </div>
+        <div  class='col-sm-4 raisedbox' style="background-color: rgba(65, 137, 146, 0.5);vertical-align:middle; text-align:center" >
+ 
+   
+   <table class="table table-condensed" >
+    <thead>
+      <tr>
+        <th>Contact Us <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+        </th>
+
+      </tr>
+     
+     </thead>
+    <tbody>
+      <tr>
+        <td>
+    </h2> 
+  </div>
+	 <form   action="{% url "contact" %}" method="post" enctype="multipart/form-data" >{%csrf_token%}
+	    <h5>{{ form.non_field_errors }}</h5>
+                <div class="justifiedT">
+                <h5>Subject</h5>
+                </div>
+                <div class="justified">
+                {{ form.subject.errors }}
+                {{ form.subject }}
+                </div>
+                <div class="justifiedT">
+                <h5>Your Message...</h5>
+                </div>
+                <div class="justified">
+                {{ form.message.errors }}
+                {{ form.message }}
+                </div>
+                <div class="justifiedT">
+                <h5>Your Email Address</h5>
+                </div>
+                <div class="justified">
+                {{ form.sender.errors }}
+                {{ form.sender }}
+                </div>
+                <div class="justifiedT">
+                <h5>CC yourself?</h5>
+                </div>
+                <div class="justified">
+                {{ form.cc_myself.errors }}
+                {{ form.cc_myself }}
+                </div>
+
+<h4></h4>
+	    <input type="submit" class='btn btn-success btn-block'>
+	  
+	</form>
+         </td>
+      </tr>
+          </tbody>
+  </table>
+        </div> 
+	
+        <div class='col-md-4'>
+               
+                    
+
+          </div>
+         </div>
+         
+               
+            </div>
+            
+      </div>
+    </div>
+
+       
+ 
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+
+{% endblock %}

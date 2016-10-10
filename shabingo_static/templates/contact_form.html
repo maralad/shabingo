@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+<link href="http://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/4.9/video.js"></script>
+<script>
+{%block jumbotron %}
+
+ <div class="jumbotron">
+      <div class="container">
+        
+        <p></p>
+        <div>
+ 
+    <!-- //-->
+ <h4>
+   <ul>
+   
+        
+        <form action="{% url "contact" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}<!-- //-->
+            <h4>{{ form.non_field_errors }}</h4>
+            
+              
+                <h4>Name</h4>
+                {{ form.name.errors }}
+                {{ form.name }}
+                
+               <h4>Email</h4>
+                {{ form.email.errors }}
+                {{ form.email }}
+              
+               <h4>Your Message</h4>
+                {{ form.message.errors }}
+                {{ form.message }}
+                
+               <h4>Website URL (optional)</h4>
+                {{form.website.errors}}
+                {{form.website}}
+                
+                <h4>Your Video Channel URL (optional)</h4>
+                {{form.video_channel.errors}}
+                {{form.video_channel}}
+                
+                
+                {{form.enquiry_type.label_tag}}
+                {{form.enquiry_type.errors}}
+                {{form.enquiry_type}}
+            
+
+            <p><input type="submit" value="Submit"  class="btn btn-primary btn-xs"/></p>
+</div>
+        </form>
+        
+       
+ 
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+
+{% endblock %}
+
+
+
+      <form action="{% url "contact" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}<!-- //-->
+            <h5>{{ form.non_field_errors }}</h5>
+            
+              
+                <h5>Name</h5>
+                {{ form.name.errors }}
+                {{ form.name }}
+                
+               <h5>Email</h5>
+                {{ form.email.errors }}
+                {{ form.email }}
+              
+               <h5>Your Message</h5>
+                {{ form.message.errors }}
+                {{ form.message }}
+                
+               <h5>Website URL (optional)</h5>
+                {{form.website.errors}}
+                {{form.website}}
+                
+                <h5>Your Video Channel URL (optional)</h5>
+                {{form.video_channel.errors}}
+                {{form.video_channel}}
+                
+                
+                {{form.enquiry_type.label_tag}}
+                {{form.enquiry_type.errors}}
+                {{form.enquiry_type}}
+            
+
+            <p><input type="submit" value="Submit"  class="btn btn-primary btn-xs"/></p>
+</div>
+        </form>

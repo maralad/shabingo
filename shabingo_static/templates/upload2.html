@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+<link href="http://vjs.zencdn.net/4.9/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/4.9/video.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
+<style>
+     .video-js {padding-top: 56.25%}
+.vjs-fullscreen {padding-top: 0px}
+
+
+</style>
+  
+
+<script>
+
+{%block jumbotron %}
+
+<script>
+	document.title = "Upload your Video Creations to Shabingo";
+</script>
+ <div class="jumbotron">
+      <div class="container">
+        
+  {% if not user.is_anonymous %}
+
+
+
+<h4><strong>Please note.</strong></h4><h4>Only .mp4 and .mov files are currently supported. Please use a converter first if you need before uploading.</h4>
+
+
+<div id="uploadform" style="color: #FFFfFf; background: rgba(192,192,192,0.3);">
+ <form action="{% url "upload" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}<!-- //-->
+    <ul padding:0 0 0 0; margin:0 0 0 0; class="row">
+       
+		<li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <h3>Upload. <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+	                   
+                             <h4>{{ form.non_field_errors }}</h4>
+            
+                              <h4>1. Set price in $.*  {{ form.price.help_text }}</h4>
+                              <div class="myerr">{{ form.price.errors }}</div>
+                             <div class="bk"> {{ form.price }}</div>
+                              <hr>        
+            </li>
+            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <h4>{{ form.non_field_errors }}</h4>
+            
+                              <h4>2. Upload preview of video.* {{ form.docfile1.help_text }}</h4>
+                              <div class="myerr">{{ form.docfile1.errors }}</div>
+                              {{ form.docfile1 }}
+                              <hr>
+            </li>
+            
+           <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+             <h4>3. Upload full Shabingo(full video).* {{ form.docfile.help_text }}</h4>
+                         <div class="myerr">{{ form.docfile.errors }}</div>
+                         {{ form.docfile }}
+                         <hr>
+            </li>
+            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+             <h4>4. Upload a poster for your preview.* {{ form.docfile2.help_text }}</h4>
+                        <div class="myerr"> {{ form.docfile2.errors }}</div>
+                         {{ form.docfile2 }}
+                         <hr>
+            </li>
+            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <h4>5. Enter Name of Video{{ form.price.help_text }}</h4>
+                          <div class="myerr">{{ form.name.errors }}</div>
+                          {{ form.name }}
+                          <hr>
+            </li>
+            
+            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+             <h4 id="h4">6. Enter Description of Video. Be as descriptive as possible. max 500 characters.{{ form.description.help_text }}</h4></h4>
+                         
+                         <div class="myerr">{{ form.description.errors }}</div>
+                         <div class="bk">{{ form.description }}</div>
+                         <hr>
+            </li>
+            
+         <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <h4>7. Select a category for your upload. </h4>
+                         <div class="myerr">{{ form.category.errors }}</div>
+                         {{ form.category }}
+                         <hr>
+            </li>
+            <li class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+             <h4>8. Is over 18's only viewers advised? *</h4>
+                         {{form.isover18s.errors}}
+                         {{form.isover18s}}
+                         <hr>
+            </li>
+                 
+        </ul>
+        <p><input id="buttonGo" type="submit" aria-label="Left Align" value="Upload your Videos" class="btn btn-primary btn-md" > </p>
+ 
+ 
+                      <h2></h2>
+                    
+           <div id= "progBar" class="progress progress-striped active my-reverse-class"  style="width: 100%;">
+           
+    <div id  ="pBar" class="progress-bar"  style="width: 100%;" <span class="sr-only"><strong>UPLOADING PLEASE WAIT...</strong></span>
+   <hr>
+   </div>
+       
+         
+
+    
+
+
+   
+
+<h3 id="status">
+
+</h3>
+  
+</div>
+            
+</div>
+
+        </form>
+     
+         {% csrf_token %}
+        {% if documents %}
+        <a>Hello {{ user.get_full_name|default:user.username }}! Your Uploads...</a>
+         
+         <table class="table table-hover" width="auto" style="  color: #FFFfFf; background: rgba(192,192,192,0.3)">
+       
+        {% for document in documents %}
+             
+            
+            {% if user.username == document.usersname %}
+              
+                    <tr>
+                    
+                        <td >
+                              {% if document.docfile.url != "" %}
+                         <h4>Video Title:
+                              {{ document.name }}
+                              {% endif %}
+                         </h4>
+                         <h4>
+                         _____________________________________
+                         </h4>
+                         <h4>
+                         
+                              Video Description:
+                         </h4>
+                         <h5 style="color :#050505">
+                    <textarea rows="10" cols="50" disabled="True">
+
+                    
+                         {{ document.description }}
+                       </textarea>
+</h5>
+                            </td>
+                            <td>
+                       
+              <div  class='col-md-12' id="video_player_box" style= "border:20px;"  img img-responsive>
+              <div id="video_player_box" style= "border:5px;">
+		    <video id="MY_VIDEO_1"  class="video-js vjs-default-skin" controls
+                    preload="auto" width="1500"dpi height="100"dpi style= "border:10px;"
+                    {% if document.docfile2.url != "" %}
+                     poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                    {% endif %}                   
+                     data-setup="{}">
+                    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }} type='video/mp4'>
+
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+                  
+                                                       
+                  <p><a class="btn btn-primary btn-md" role="button" href='{% url "edit_preview" document.id %}' >Edit / Delete  &raquo;</a> Preview Clip</p> 
+                    
+                    </div>
+               </div>
+               </td>
+               <td>
+               
+               
+                <div  class='col-md-12' id="video_player_box"   style= "border:20px;" img img-responsive>
+              <div id="video_player_box" style= "border:5px;">
+		    <video id="MY_VIDEO_1"  class="video-js vjs-default-skin" controls
+                    preload="auto" width="150"dpi height="100"dpi style= "border:10px;"
+                    {% if document.docfile2.url != "" %}
+                     poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                    {% endif %}                   
+                     data-setup="{}">
+                    <source src="{{ document.docfile.url }}">{{ document.docfile.name }} type='video/mp4'>
+
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+                   
+                     <p><a class="btn btn-primary btn-md" role="button" href='{% url "edit_preview" document.id %}' >Edit / Delete &raquo;</a> Full Shabingo</p> 
+               
+               </div>    
+               </div>
+               </td>
+               <td>
+                        <div class='col-md-2'>
+                        </div>
+                            </td>
+                       </tr>
+            
+           {% endif %}
+       </p>
+        {% endfor %}
+        </ul>
+        </table>
+        
+        {% else %}
+              {% endif %}
+
+     
+        
+       
+     <li>
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+     </li>
+     <li>
+       <p><a class="btn btn-primary btn-xs" role="button" href='{% url "logout" %}'>Log out &raquo;</a></p> 
+     </li>
+   {% else %}
+     
+     <div class= 'col-md-4' style='text-align: center'>
+     <h3>Please login First to upload</h3>
+     {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+    {% endif %}
+    {% if form.errors %} 
+        <p class="error">Sorry, That is not a valid Username or Password</p>
+    {% endif %}
+    <div style="float: left;">
+    <p>
+     
+     <form action="/accounts/auth/" method="post" >{% csrf_token %}
+        <label for="username">User name:</label>
+       <div class="bk"> <input type="text" name="username" value="" id="username"></div>
+          <h4></h4>
+        <label for="password">Password:</label>
+        <div class="bk"><input type="password" name="password" value="" id="password"></div>
+        <h4></h4>
+        <input type="submit" class="btn btn-primary btn-default" value="Login" />
+       </form>
+     <h1></h1>
+     
+     </p>
+    <h1></h1>
+     <ul style="list-style-type: none;">
+          <li>
+          </li><p><a class="btn btn-default btn-lg" role="button" href='{% url "reg" %}'>Not a member? Register Here</a></p> 
+        </li>
+     
+    <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+     </li>
+     <li>
+     
+        <a href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+  
+
+     </ul>
+     </div>
+    
+      {% endif %}
+   </ul>
+ </p>
+ </div>
+   
+    <div>
+        
+      </div>
+    </div>
+<script>
+    $(document).ready(function(){
+ $('#progBar').hide();
+                                   
+$( "#buttonGo" ).click(function() {
+    $('#progBar').show();
+   //visibility:hidden;
+  //$('#progBar').css("visibility","visible");
+});
+
+});
+</script> 
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+
+{% endblock %}             

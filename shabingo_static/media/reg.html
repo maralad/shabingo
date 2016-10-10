@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+
+ <div class="jumbotron">
+     
+    
+      
+      <div class="container">
+	  
+	
+		<div class='col-md-8'>
+ <div class="panel panel-primary" style="color: #FFFfFf; background: rgba(8, 16, 133, 0.2);" >
+  <div class="panel-heading">
+   
+    <h2 class="panel-title">Check List
+ <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    </h2>
+    </div>
+        <p>             
+1. Please ensure you have a verified Pay pal account ready so you can receive your payments. Its just a few steps. For more information Click the pay pal button.<a href="http://pages.ebay.ie/help/account/paypal-verify.html"><img  class=" img img-responsive" src="/static/media/GetVerSm.png" alt="Shabingo!!"></a>
+
+	</p>
+	<h2></h2>
+	<p>
+2. Before uploading your Videos you will need to prepare a seperate video preview clip for each video. So you will be uploading 2 clips at a time.
+This is where you can have some fun getting creative. The aim of the preview clip is to make it complelling enough for the viewer to really want to pay to see your full video clip or the "Full Sabingo".
+</p>
+	<h2></h2>
+	<p>
+3. Please note that the max upload file size for the previews will be 100MB and 600mb for the full clip.
+This will probably change in time but for starters this will be the limited size.
+</p>
+	<h2></h2>
+	<p>
+4. Formats preferred will be .mp4 /.ogg or .mov so please keep that in mind also when recording.
+</p>
+	<h2></h2>
+	<p>
+5.You will also be required to upload a poster image to go with the clip. .jpeg or .png are fine Maz size 50mb.
+</p>
+	<h2></h2>
+	<p>
+6. Have fun and get creative!
+</p>
+
+  </div>
+ </div>
+                   <div  class='col-sm-3' >
+ 
+   
+   <table class="table table-condensed" style="color: #FFFfFf; background: rgba(192,192,192,0.1);">
+    <thead>
+      <tr>
+        <th>Signup is free and easy <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+	</th>
+
+      </tr>
+     
+     </thead>
+    <tbody>
+      <tr>
+        <td>
+    
+    </h2> 
+  </div>
+	 <form   action="{% url "home" %}" method="post" enctype="multipart/form-data" >{%csrf_token%}
+	    <h5>{{ form.non_field_errors }}</h5>
+                <div class="justifiedT">
+                <h5>User Name</h5>
+                </div>
+                <div class="justified">
+                {{ form.username.errors }}
+                {{ form.username }}
+                </div>
+                <div class="justifiedT">
+                <h5>Email</h5>
+		
+		</div>
+		
+                <div class="justified">
+                {{ form.email.errors }}
+                {{ form.email }}
+		</div>
+                
+		<div class="justifiedT">
+                <h5>Password</h5>
+                </div>
+                <div class="justified">
+                {{ form.password1.errors }}
+                {{ form.password1 }}
+                </div>
+                <div class="justifiedT">
+                <h5>Password confirmation</h5>
+                </div>
+                <div class="justified">
+                {{ form.password2.errors }}
+                {{ form.password2 }}
+                </div>
+
+<h4></h4>
+	    <input type="submit" class='btn btn-success btn-block' value="Submit">
+	      <div class="justified" style="color: #FFFfFf;">
+             <h4>Or...</h4>
+	      </div>
+	   <ul  style="list-style-type:none">
+   {% if user and not user.is_anonymous %}
+        <p><a class="btn btn-primary btn-lg" role="button"href='{% url "loggedin" %}'>Search for Videos</a></p>
+     <li>
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+     </li>
+     <li>
+      <p><a class="btn btn-primary btn-xs" role="button" href='{% url "logout" %}'>Log out &raquo;</a></p> 
+
+     </li>
+   {% else %}
+      <div class="justified">
+      <li style='text-align: center'>
+    <h3></h3>
+    </li>
+      
+      
+      <a style='text-align: center' href= "{% url 'social:begin' 'facebook' %}?next={{ request.path }}" ><img  class=" img img-responsive" src="/static/media/FBook.png"></a>
+      </div>
+      <div class="justified">
+      <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img  class=" img img-responsive" src="/static/media/Twit.png"></a>
+      </div>
+     </p>
+   {% endif %}
+   </ul>  
+	</form>
+	 </td>
+      </tr>
+          </tbody>
+  </table>
+        
+	</div>
+          </div>
+      </div>
+    
+	 
+     
+      
+    
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+{% endblock %}

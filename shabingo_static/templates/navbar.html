@@ -1,0 +1,57 @@
+<style type="text/css">
+    #over18 {left: 0; position: absolute; margin:1% !important; width:98%;} 
+    #over18 .modal-body {max-height: none;}
+    
+
+
+    .modal { display:none; }
+    .highlight {
+    background: #C2D699;}
+   
+
+
+</style>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+        
+                    
+    {% if form.errors %}
+        <p class="error"></p>
+    {% endif %}
+    
+    <form action="/accounts/auth/" method="post">{% csrf_token %}
+        <a href='{% url "home" %}'style=" float:left;"><img  class=" img img-responsive" src="/static/media/ShabingoTransSm.png" alt="Shabingo!!">  </a>
+       
+              
+    </form>
+   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+ 
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+        </div>
+        <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+        
+        
+     
+       
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right" id="navbar" style="text-transform:uppercase;">  
+        <li> <a href='{% url "videos" %}'>Browse Videos</a></li>   
+    <li> <a href='{% url "loggedin2" %}'>Get Started</a></li>
+     <li> <a href='{% url "upload" %}'>Upload</a></li>
+     <li> <a href='{% url "loggedin2" %}'>My Shabingo</a></li>
+       <li> <a href='{% url "aboutus" %}'>About Us</a></li>
+        <li><a href='{% url 'contact' %}'>Contact Us</a></li>  
+          <!-- <li> <a href='/blog'>Blog</a></li> -->
+      </ul>
+    
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>

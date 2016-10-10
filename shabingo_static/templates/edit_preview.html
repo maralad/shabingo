@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{%block jumbotron %}
+                    <script>
+
+$(document).ready(function(){
+function uploadFile(){
+$("#pBar").show();
+}
+});
+
+</script>
+ <div class="jumbotron">
+     
+    
+      
+      <div class="container">
+        <div  class='col-sm-9'></div>
+        
+ 
+    <!-- //-->
+ <h4>
+   <ul>
+   {% if not user.is_anonymous %}
+   
+   {% if user.username == document.usersname %}
+            <div class="bs-example"
+    <!-- Button HTML (to Trigger Modal) -->
+    <a href="#" onclick="delMod()" class="btn btn-md btn-success" aria-label="Left Align">Delete this Upload</a>
+    
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="modbut" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" style="color: black">Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="color: black">Are you sure you want to delete this Video?</p>
+                    <p class="text-warning"><small>Both preview, full Shabingo video and all other data will be removed</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary btn-sm" role="button" href='{% url "delete_record" document.id %}'>Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <div class="panel panel-primary" style="color: #FFFfFf; background: rgba(192,192,192,0.1);" >
+  <div class="panel-heading">
+   
+    <h2 class="panel-title">Edit Video {{document.name}}
+     
+     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+     
+    </div>
+        <form action="{% url "edit_preview" document.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}<!-- //-->
+            
+      <table class="table table-bordered">
+                    
+                    <tr>
+                        <td>
+                             <h4>{{ form.non_field_errors }}</h4>
+            
+ <!-- /PREVIEW CLIP/--> <h4><strong>Change or leave your current Preview Clip:</strong></h4>
+                              {{ form.docfile1 }} 
+                            
+           
+                        </td>
+                         <td>
+                    <div class='col-md-6' id="video_player_box" style= "border:5px;">
+		    <video id="myVideo"  class="video-js vjs-default-skin" controls
+                    preload="auto" width="150"dpi height="100"dpi style= "border:10px;"
+                    {% if document.docfile2.url != "" %}
+                     poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                    {% endif %}                   
+                     data-setup="{}">
+                    <source src="{{ document.docfile1.url }}">{{ document.docfile1.name }} type='video/mp4'>
+
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+                    </div>
+                         </td>
+                        
+                    </tr>
+                    <tr>
+                        <td >
+                             <h4>{{ form.non_field_errors }}</h4>
+            
+                              <h4>Set Price in $</h4>
+                              
+ <!-- /PRICE/-->              <div class="bk">{{ form.price }}</div>
+                                         
+                        </td>
+                        <td>
+                              <h4>Price Currently set at ${{ document.price }}</h4>
+
+                         </td>
+                    </tr>
+                    <tr>
+                        <td >
+                       
+
+                          <h4><h4><strong>Change your Main Clip (Full Sabingo)</strong></h4></h4>
+                         {{ form.docfile }}
+ <!-- /FULL SHABINGO/-->
+                        </td>
+                         <td>
+                              <div class='col-md-6' id="video_player_box" style= "border:5px;">
+		    <video id="myVideo"  class="video-js vjs-default-skin" controls
+                    preload="auto" width="150"dpi height="100"dpi style= "border:10px;"
+                    {% if document.docfile2.url != "" %}
+                     poster = "{{ document.docfile2.url }}">{{ document.docfile2.name }}
+                    {% endif %}                   
+                     data-setup="{}">
+                    <source src="{{ document.docfile.url }}">{{ document.docfile.name }} type='video/mp4'>
+
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                    </video>
+                    </div>
+                         </td>                      
+                    </tr>
+                    <tr>
+                         <td >
+                              <h4>{{ form.non_field_errors }}</h4>
+            
+ <!-- /PREVIEW CLIP/--> <h4><strong>Change Poster</strong></h4>
+                            {{ form.docfile2 }}
+                             
+                         </td>
+                         <td>
+                              
+                              <img width="300"dpi height="200"dpi src="{{ document.docfile2.url }}"></img>
+                         </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <h4>Change Name of Video:</h4>
+                          
+                         <div class="bk"> {{ form.name }}</div>
+
+                        </td>
+                       <td>
+                          <h4>Name of Video: {{ document.name }}</h4>
+                              
+                         </td>
+                    </tr>
+                    <tr>
+                        <td >
+                        
+                         <h4 id="h4">Change Description of Video</h4>
+                         
+                        
+                         <div class="bk">{{ form.description }}</div>
+                        <h4></h4>
+                         </div>
+                        </td>
+                         <td>
+                              <h4>Current Description:</h4>
+                         <h5 style="color :#050505">
+                              <textarea rows="10" cols="50" disabled="True">
+
+                              {{ document.description }}
+                              </textarea>
+                         </h5>
+                        </td>
+                    </tr>
+                    <tr>
+                         
+                        <td >
+                          <h4>Change Category?</h4>
+                      
+                         {{ form.category }}
+                        </td>
+                       <td>
+                              <h4>Current category: {{document.category}}</h4>
+                         </td>
+                    </tr>
+                    <tr>
+                        <td >
+                         <h4>Is over 18 viewing advised?</h4>
+                   
+                         {{form.isover18s}}
+                        </td>
+                       <td>
+                              <h4>Current classification : {{document.isover18s}}</h4>
+                         </td>
+                    </tr>
+                     <tr>
+                        <td >
+                         <h4>Allow payment by sharing also?</h4>
+                   
+                         {{form.document_type}}
+                        </td>
+                       <td>
+                              <h4>Current Setting : {{document.document_type}}</h4>
+                         </td>
+                    </tr>
+                </table>
+            
+           
+
+            <p><input onclick="uploadFile()" id="button" type="submit" aria-label="Left Align" value="Submit Changes" class="btn btn-primary btn-lg" > </p>
+            <h4></h4>
+       
+            
+     
+            
+     <div  id= "progBar" class="progress progress-striped active my-reverse-class >
+           
+    <div id  ="pBar" class="progress-bar" style="width: 100%;visibility:hidden;" <span class="sr-only"><strong>UPLOADING CHANGES PLEASE WAIT...</strong></span>
+  
+  
+ </div>
+   </div>
+     
+    </div>
+         </div>
+         </div>
+   
+	 
+     {%endif%}
+      {%endif%}
+    
+{% endblock %}
+
+
+{% block content %}
+<div class= 'col-sm-12' style='text-align: center'>
+
+{% endblock %}                 
