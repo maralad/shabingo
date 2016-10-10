@@ -1,5 +1,5 @@
 # README #
-# This is the entire code that powers a fully functional commercial video platform #
+# This is the entire code that powers a fully functional commercial video platform-- https//shabingo.com#
 * Feel free to fork it and have fun with it.
 * Acknowledgement to Donagh Corcoran -Author
 * The only thing you will need to add to it to get it working is your setttings. 
@@ -46,8 +46,7 @@ SECRET_ACCESS_KEY = xxx
 
 [STATIC_FILES]
 STATIC_URL = /static/
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
 
 [PAYPAL]
 PAYPAL_RECEIVER_EMAIL = xxx
