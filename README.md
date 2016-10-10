@@ -1,7 +1,7 @@
 # README #
 # This is the entire code that powers a fully functional commercial video platform #
 * Feel free to fork it and have fun with it.
-* Aknowledgemet to Donagh Corcoran -Author
+* Acknowledgement to Donagh Corcoran -Author
 * The only thing you will need to add to it to get it working is your setttings. 
 * The shabingo_settings.cfg where settings.py gets all the passwords and secure information is stored in a private repo.
 * Below is what shabingo_settings.cfg keys are. Enter your own values for your server, database, stripe ids etc. 
