@@ -1,8 +1,9 @@
 # README #
 # This is the entire code that powers a fully functional commercial video platform.. https://shabingo.com#
+# If you want to use this for commercial reuse you must contact me first at donagh@maralad.com #
 * Feel free to fork it and have fun with it.
 * Acknowledgement to Donagh Corcoran -Author
-# If you want to use this for commercial reuse you must contact me first at donagh@maralad.com#
+
 * The only thing you will need to add to it to get it working is your setttings. 
 * The shabingo_settings.cfg where settings.py gets all the passwords and secure information is stored in a private repo.
 * Below is what shabingo_settings.cfg keys are. Enter your own values for your server, database, stripe ids etc. 
