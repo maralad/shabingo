@@ -1,5 +1,5 @@
 # README #
-# This is the entire code that powers a fully functional commercial video platform-- https//shabingo.com#
+# This is the entire code that powers a fully functional commercial video platform.. https://shabingo.com#
 * Feel free to fork it and have fun with it.
 * Acknowledgement to Donagh Corcoran -Author
 * The only thing you will need to add to it to get it working is your setttings. 
