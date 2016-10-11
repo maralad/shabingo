@@ -154,8 +154,7 @@ def stripe_pay(request):
             try:
                 reseller= Reseller_token.objects.get(userID_id=reseller_user.id)
             except Exception as e:
-                #if it goes wrong more
-                 than likkely the reseller has not connected their
+                #if it goes wrong more than likkely the reseller has not connected their
                 #stripe account yet.
                 #TODO: make exception on exact error
                 msg=  'This reseller is not set up for payments currently ...{0}'.format(e)
@@ -1030,4 +1029,4 @@ def send_email(args):
             if email:
                 recipients.append(email)            
            
-            send_mail(subject, message, 'info@shabingo.com', recipients)
+            send_mail(subject, message, 'info@shabingo.com', recipients)    
