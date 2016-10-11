@@ -131,7 +131,6 @@ def myvideos(request):
         context_instance=RequestContext(request)
         )
     
-       #my_vids= Document.objects.filter(users=request.user.id)       
     return render_to_response(
         'myvideos.html',
         {'my_vids': my_vids},
@@ -155,7 +154,8 @@ def stripe_pay(request):
             try:
                 reseller= Reseller_token.objects.get(userID_id=reseller_user.id)
             except Exception as e:
-                #if it goes wrong mor than likkely the reseller has not connected their
+                #if it goes wrong more
+                 than likkely the reseller has not connected their
                 #stripe account yet.
                 #TODO: make exception on exact error
                 msg=  'This reseller is not set up for payments currently ...{0}'.format(e)
@@ -164,8 +164,8 @@ def stripe_pay(request):
                 docid=str(doc_id)       
                 obj_doc=Document.objects.get(id=doc_id)   #This gets the full record of the video from the database inro obj_doc
                 
-                #We need to let the reseller know that someone want to ggive them 
-                #money for their vvideo so send them an email to sort it out!
+                #We need to let the reseller know that someone wants to give them 
+                #money for their video so send them an email to sort it out!
                 args["subject"]="ATTENTION: {0}, A user is trying to pay you for your video".format(seller_name)
                 args["message"]="""
                 Hi {0},
@@ -189,15 +189,13 @@ def stripe_pay(request):
                 return HttpResponse(msg)
             
             #Reseller has set up their Stripe account and are about to get paid :):) Whoopee!
-            logger.info('reseller ====={0}'.format(reseller))
             stripe_acc_id  = reseller.stripe_user_id
-            
-            logger.info('Stripe Reseller ID {0}'.format(stripe_acc_id))
             app_price =int(request.POST['price'])
             app_price=app_price*100
+
             #appp_fee variable below is the commmission that goes to Shabingo.
             #Currently set to 0 :(
-            app_fee= 0#(app_price/100)*23
+            app_fee= 0#(app_price/100)*23 
             str_fee=str(app_fee)
             
             charge = stripe.Charge.create(
@@ -326,12 +324,17 @@ def login(request, document_id):
     return render_to_response('login.html', c)
 
 def auth_view(request):
+    #If a non registered user clicks on a video to view it they 
+    #wil be prompted to log in. So we need to track the value of 
+    #the session varable 'login_video' which was set when they  
+    #signed up or logged in so we know what video 
+    #to redirect them back to after the log in or registration process
+    #so it all works seamlessly
 
     username= request.POST.get('username','')
     email= request.POST.get('email','')
     password= request.POST.get('password','')
     user = auth.authenticate(username=username, email=email, password=password)
-    #logger.info('We are in auth_view and request={0}'.format(request))
     if user is not None:
         auth.login(request, user)
         if 'login_video' in request.session:
@@ -391,7 +394,7 @@ def home(request):
             #Email text stored in the settings.py file
             msg=msg+settings.WELCOME_EMAIL
             message = msg
-            #new_user=form.cleaned_data['sender']
+        
             recipients = ['info@shabingo.com']
             if email:
                 recipients.append(email)            
@@ -410,7 +413,7 @@ def home(request):
     return render(request, 'signup.html', {'form': form})
    
 def signup2(request):
-    ##form = SignUpForm(request.POST or None)
+
     ##Test home page 
     if request.method == 'POST':
         form = UploadRawForm(request.POST, request.FILES)
@@ -437,13 +440,13 @@ def reg(request):
             msg="Hi {0},".format(username)
             msg=msg+settings.WELCOME_EMAIL
             message = msg
-            #new_user=form.cleaned_data['sender']
+           
             recipients = ['info@shabingo.com']
             if email:
                 recipients.append(email)            
            
             send_mail(subject, message, 'info@shabingo.com', recipients)
-            #messages.success(request, 'Thank you for joining!')
+         
             return HttpResponseRedirect('thank-you')
 
     else:
@@ -499,17 +502,18 @@ def isNotBadError(errors):
 
 
 def delete_record(request, document_id):
-   # logger.debug('USER ID %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%+++++++++++{0}'.format(request.user.id))   
+
+    #If a user wants to delete a video
     if request.user.id >0 :
         newdoc = Document.objects.get(id=document_id)
         newdoc.delete()
-    #logger('trying to delete here')
     return HttpResponseRedirect(reverse('main.views.upload'))
 
 
 def edit_preview(request, document_id):
         ##This is where a user can go in and edit all the details 
         ##of and existing video that they have uploaded
+        ##This is all a bit verbose but at least its clear whats going on
     
         if request.method == 'POST':
             form = DocumentForm(request.POST, request.FILES)
@@ -523,13 +527,15 @@ def edit_preview(request, document_id):
             form.fields['name'].required = False
 
             if form.is_valid():
-               
-                #newdoc = Document(docfile1 = request.FILES['docfile1'], docfile = request.FILES['docfile'],  docfile2 = request.FILES['docfile2'])
+                
+                #Get the particular video uploaded record from the database
                 newdoc = Document.objects.get(id=document_id)
                 newdoc.usersname = request.user.username                
                 
-                #newdoc = Document(docfile = request.FILES['docfile'])
-                
+                #Certain fields may or may not have changed
+                #If they are present then they will be updated 
+                #otherwise they wont
+
                 if request.FILES.get('docfile'):
                     myfile=request.FILES.get('docfile')
                 else:
@@ -544,7 +550,6 @@ def edit_preview(request, document_id):
                     myfile2=request.FILES.get('docfile2')
                 else:
                     myfile2=None
-                                    
                 
                 if myfile:
                    newdoc.docfile = myfile
@@ -562,6 +567,7 @@ def edit_preview(request, document_id):
                 newdoc.name =request.POST.get('name','')
                 newdoc.description =request.POST.get('description','')
                 
+                #Clean the fields and save the record
                 form.clean_content()
                 if myfile:
                     newdoc.save(update_fields=['docfile'])
@@ -596,6 +602,8 @@ def edit_preview(request, document_id):
         document = Document.objects.get(id=document_id)
 
         form = DocumentForm() 
+        
+        #Return the updated record to be rendered on the front end
         return render_to_response(
             'edit_preview.html',
             {'document': document, 'form': form},
@@ -603,7 +611,19 @@ def edit_preview(request, document_id):
         )
        
 def upload(request):
-        # Handle file upload
+    # Handle Video upload
+
+    # A lot going on here especially shell commands
+    # 3 files get uploaded with various meta info fields
+    # Using FFMPEG 2 videos are converted to mp4 regardless of 
+    # what they are when uploaded first. Then they get renamed, 
+    # saved and the original ones are deleted
+    # A poster image for the first frame is also uploaded and 
+    # resized using image Magick.
+    # Function execute_shell is used a lot sending lots of commands through
+    # pythons subprocess synchronously
+    # May redo this so it is done asynchronously but afraid people will think
+    # Nothing happened and not come back. 
     
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
@@ -734,27 +754,22 @@ def get_new_file(old_file):
     split_file=new_file.split('/')  
     strip_file=split_file[-1]
     strip_file='_out_'+strip_file
-    #split_file[-1]=strip_file
-    #new_file=''.join(split_file)
 
     return strip_file
 
 
 
 def execute_shell(shell_command ):
-        
-        logger.debug('CMD CMD CMD CMD CMD CMD CMD CMD {0} '.format(shell_command))
-        #args = shell_command.split(' ')
-        # logger.debug('ARGS ARGS ARGS ARGS ARGS=={0}'.format(args))
 
-        try:
-            p = subprocess.Popen(shell_command, shell=True,
-                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            out = p.communicate()[0]
-            return out
-                
-        except Exception as e:
-            logger.debug('Error with shell cmd  {0}'.format(e))
+    #very effective way of executing shell commands synchronously
+    try:
+        p = subprocess.Popen(shell_command, shell=True,
+                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        out = p.communicate()[0]
+        return out
+            
+    except Exception as e:
+        logger.debug('Error with shell cmd  {0}'.format(e))
 
         
 def approve(request):
@@ -766,7 +781,6 @@ def approve(request):
     )    
 def videos(request):
    
-       
     documents = Document.objects.filter(published=True,isover18s=0).order_by('-id')
     
     return render_to_response(
@@ -776,7 +790,7 @@ def videos(request):
     )
 def shabingoadult(request):
    
-       
+    #Not currently active;; :) Say no more    
     documents = Document.objects.filter(published=True,isover18s=1).order_by('-id')
     
     return render_to_response(
@@ -850,41 +864,20 @@ def upload2(request):
         if form.is_valid():
             
             newdoc = Document(docfile = request.FILES['docfile'], docfile1 = request.FILES['docfile1'],  docfile2 = request.FILES['docfile2'])
-            
-            #if not is_validate(newdoc.docfile):
-             #   raise forms.ValidationError("Main Clip Must be .mov of .mp4 file format only")
-            #if not is_validate(newdoc.docfile1):
-             #   raise forms.ValidationError("Preview Clip Must be .mov of .mp4 file format only")
-
-
-            #newdoc.docfile1
             newdoc.usersname = request.user.username
             newdoc.price=request.POST.get('price','')
             newdoc.category= request.POST.get('category','')
             newdoc.isover18s =request.POST.get('isover18s','')
             newdoc.name =request.POST.get('name','')
             newdoc.description =request.POST.get('description','')
-            ##print "usersname:::= %s." % usersname
+   
             
             form.clean_content()
             
-            #if not (form.clean_content()):
-                 ##messages.error(request,form.clean_content.output)
-                 #logger.debug('messages.error(request,form.clean_content.output)')
-                
-                 #return render_to_response('upload.html', locals(), context_instance=RequestContext(request))
-            
-            #else:
-                #logger.debug('Saved')
                
             newdoc.save()
 
-            # Redirect to the document list after POST
             return HttpResponseRedirect(reverse('main.views.upload'))
-           # else:
-            #     raise forms.ValidationError("Main Clip Must be .mov of .mp4 file format only")
-        #else:
-         #    raise forms.ValidationError("Preview Clip Must be .mov of .mp4 file format only")
     else:
         form = DocumentForm() # A empty, unbound form
 
@@ -900,6 +893,9 @@ def upload2(request):
 
 @csrf_exempt
 def show_me_the_money(sender, **kwargs):
+
+    #This is where paypal redirects to after it recieves payment
+    #Works perfectly. not currently implemented  but was and works good
     ipn_obj = sender
     
     logger.debug("this is a debug message from show_me_the_money 1st,!"+str(ipn_obj))
@@ -945,10 +941,9 @@ def show_me_the_money(sender, **kwargs):
     
 
 def video(request, document_id):
-    #logger.info('request @@@@@@@@@@@@@@@={0}'.format(request))
-    
+
+    #Returns requested preview to user
     document = Document.objects.get(id=document_id)
-    
     
     return render_to_response(
             'video.html',
@@ -956,8 +951,9 @@ def video(request, document_id):
             context_instance=
             RequestContext(
             request))
+
 def video2(request, document_id):
-    logger.info('request @@@@@@@@@@@@@@@={0}'.format(request))
+
 
     document = Document.objects.get(id=document_id)
 
@@ -1013,6 +1009,7 @@ def video2(request, document_id):
 
 def myvideo(request, document_id):
     
+    #This is what pulls down all your purchased videos into your private area
     if request.user.id:
         document = Document.objects.get(id=document_id)
     else:
@@ -1024,6 +1021,7 @@ def myvideo(request, document_id):
     
 def send_email(args):
             
+            #Simple email function
             username= args.get('username','')                
             email= args.get('email','')
             subject = args.get('subject','')
