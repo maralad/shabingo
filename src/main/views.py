@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 __author__ = 'Donagh Corcoran'
-
+"""Django 1.6.4"""
 from django.conf import settings
 from django.contrib import messages, auth
 from forms import MyRegistrationForm
@@ -50,7 +50,7 @@ from rauth import OAuth2Service
 
 
 
-
+#All the stripe payment keys  and urls
 stripe.api_key = settings.LIVE_SECRET_KEY
 stripe_connect_service = OAuth2Service(
         name = 'stripe',
@@ -72,7 +72,6 @@ class ItemListView(ListView):
     def get_queryset(self):
         return Item.objects.all()
         
-    """ Edit item """
 class ItemUpdateView(UpdateView):
     model = SignUp
     form_class = SignUpForm
@@ -88,7 +87,7 @@ class ItemUpdateView(UpdateView):
         return HttpResponse(render_to_string('item_edit_form_success.html', {'item': SignUp}))
 
 def myprofile(request):
-  #todo this...
+  #User profile page...
     if request.method =='POST':
         form = MyRegistrationForm(request.POST)
         if form.is_valid():
@@ -115,15 +114,15 @@ def loginsocial(request):
                              context_instance=context)
       
 def stripe_auth(request):
+    #Here we let reselers set up and connect their stripe accoounts 
+    #so they can charge end users
     params = {'response_type': 'code','scope':'read_write'}
     url = stripe_connect_service.get_authorize_url(**params)
     return HttpResponseRedirect(url)
 
 @csrf_exempt
 def myvideos(request):
-    logger.info('request MY=VIDEO @@@@@@@@@@@@@@@={0}'.format(request))
-   
-    logger.debug("this is a debug message from MyVideos!")
+    #Page which retrieves all videos purchased by a user
     try:
         my_vids=Document.objects.filter(users=request.user.id).order_by('-id')#request.user.id
     except: 
@@ -141,31 +140,32 @@ def myvideos(request):
 
 @csrf_exempt
 def stripe_pay(request):
-    #logger.info('logging strips pay request {0}'.format(request))      
+    #Payment processing by stripe or by sharing    
     documents={}                  #request.user.id
     status=''
     args={}
     if request.method == 'POST':
         seller_name =request.POST['seller']    
-        #logger.info('seller ---===={0}'.format(seller_name))
         reseller_user =User.objects.get(username=seller_name)
             
-             
+        #If user is paying by stripe     
         if  request.POST['stripeToken']!='share':
             token=request.POST['stripeToken']
-            #logger.info('stripeToken = {0}'.format(token)) 
-            #_user = User.objects.filter(username==seller_name)
-            logger.info('reseller_user {0}'.format(reseller_user))
-            logger.info('reseller_user.id {0}'.format(reseller_user.id))
             documents = Document.objects.filter(usersname=request.user.username)
             try:
                 reseller= Reseller_token.objects.get(userID_id=reseller_user.id)
             except Exception as e:
+                #if it goes wrong mor than likkely the reseller has not connected their
+                #stripe account yet.
+                #TODO: make exception on exact error
                 msg=  'This reseller is not set up for payments currently ...{0}'.format(e)
                 logger.debug(msg)
                 doc_id=request.POST['doc_id']   #id of the video
                 docid=str(doc_id)       
                 obj_doc=Document.objects.get(id=doc_id)   #This gets the full record of the video from the database inro obj_doc
+                
+                #We need to let the reseller know that someone want to ggive them 
+                #money for their vvideo so send them an email to sort it out!
                 args["subject"]="ATTENTION: {0}, A user is trying to pay you for your video".format(seller_name)
                 args["message"]="""
                 Hi {0},
@@ -187,25 +187,28 @@ def stripe_pay(request):
                 args["recipients"]="info@shabingo.com"         
                 send_email(args)
                 return HttpResponse(msg)
-                    
+            
+            #Reseller has set up their Stripe account and are about to get paid :):) Whoopee!
             logger.info('reseller ====={0}'.format(reseller))
             stripe_acc_id  = reseller.stripe_user_id
             
             logger.info('Stripe Reseller ID {0}'.format(stripe_acc_id))
             app_price =int(request.POST['price'])
             app_price=app_price*100
+            #appp_fee variable below is the commmission that goes to Shabingo.
+            #Currently set to 0 :(
             app_fee= 0#(app_price/100)*23
             str_fee=str(app_fee)
             
             charge = stripe.Charge.create(
-              amount=request.POST['price']+'00', # amount in cents
+              amount=request.POST['price']+'00', # amount in cents goint to reseller
               #amount='100', # testing purposes :)               
               currency="eur",
               source=request.POST['stripeToken'],
-              application_fee=app_fee, # amount in cents             
+              application_fee=app_fee, # amount in cents going to Shabingo        
               stripe_account=stripe_acc_id
             )
-            logger.info('charge  isisisi {0}'.format(charge))
+    
             status=charge["status"]
      
        
@@ -217,8 +220,7 @@ def stripe_pay(request):
         obj_doc.users.add(my_user) #Here we add the video buyer to the videos list of users
         obj_doc.save()  # And save it
         
-        #logger.debug("this is a debug message from show_me_the_money Saved,!"+str(my_user)+' + '+str_fee)
-        
+        #If all good send an email to the reseller telling them the good news  
         if 	status== "succeeded" or request.POST['stripeToken']=='share':
             
             my_vids=Document.objects.filter(users=request.user.id)#request.user.id
@@ -233,6 +235,8 @@ def stripe_pay(request):
                 Best regards,
                 The Shabingo team.
                 """.format(reseller_user.first_name,obj_doc.name)
+
+                #If reseller has enabled pay by sharing let the reseller know too
             else:
                 args["subject"]="Your video has been shared"
                 args["message"]="""
@@ -258,6 +262,9 @@ def stripe_pay(request):
 
 def stripe_callback(request):
 
+    #After reseller connects their stripe account they get redirected
+    #to this endpoint from Stripe and Stripe provides us with all 
+    #their accout details that we save
     code = request.GET['code'] 
     stripe_cust = Reseller_token()
     stripe_cust.token=code          
@@ -271,8 +278,6 @@ def stripe_callback(request):
     resp = stripe_connect_service.get_raw_access_token(method='POST', data=data)
     stripe_payload = json.loads(resp.text)
     
-    logger.info('resp RESPONSE RESPONSE STRIPE= {0}'.format(resp))
-    logger.info('resp RESPONSE RESPONSE TEXT TEXT STRIPE= {0}'.format(resp.text))
     stripe_cust.access_token=stripe_payload["access_token"]
     stripe_cust.livemode=stripe_payload["livemode"]
     stripe_cust.token_type=stripe_payload["token_type"]
@@ -285,7 +290,6 @@ def stripe_callback(request):
     stripe_cust.save()
     
     return render_to_response('loggedin2.html', locals(), context_instance=RequestContext(request)) 
-
 
 
 def list(request):
@@ -383,6 +387,8 @@ def home(request):
             email= request.POST.get('email','')
             subject = 'Hi {0} Welcome to Shabingo'.format(username)
             msg="Hi {0},".format(username)
+
+            #Email text stored in the settings.py file
             msg=msg+settings.WELCOME_EMAIL
             message = msg
             #new_user=form.cleaned_data['sender']
@@ -405,7 +411,7 @@ def home(request):
    
 def signup2(request):
     ##form = SignUpForm(request.POST or None)
-    
+    ##Test home page 
     if request.method == 'POST':
         form = UploadRawForm(request.POST, request.FILES)
         if form.is_valid():
@@ -502,7 +508,8 @@ def delete_record(request, document_id):
 
 
 def edit_preview(request, document_id):
-        logger.info('request edit_preview @@@@@@@@@@@@@@@={0}'.format(request))
+        ##This is where a user can go in and edit all the details 
+        ##of and existing video that they have uploaded
     
         if request.method == 'POST':
             form = DocumentForm(request.POST, request.FILES)
@@ -620,21 +627,22 @@ def upload(request):
                 newdoc.document_type =1
             else:
                 newdoc.document_type =0
-            
+            #Temporarily commented out. lots of error handling on front end
             #form.clean_content()
             newdoc.save()
             logger.debug('File name = {0}'.format(newdoc.name))
             
             new_file=get_new_file(newdoc.docfile.name)            
-            #logger.debug('newdoc.docfile.name_ ========================== {0}'.format(newdoc.docfile.name))
-            #logger.debug('Out put new_file  ========================== {0}'.format(new_file))
+          
             new_file1=get_new_file(newdoc.docfile1.name)
+
+            #New folders and need to be created
             today_folder =datetime.date.today().strftime("%Y/%m/%d")
-            #logger.debug('today_folder ={0}'.format(today_folder))
+
             
             str_= str(newdoc.docfile2.name)
             str_file2="_thumb_" +str_.split('/')[-1]
-                
+            #create destination of converted files
             prefix='/home/donagh/webapps/shabingo_static/media/'
             output=os.path.join('MEDIA_ROOT','documents',today_folder,new_file)
             output1=os.path.join('MEDIA_ROOT','documents',today_folder,new_file1) 
@@ -651,7 +659,7 @@ def upload(request):
             str_file2=str(newdoc.docfile2.name)
             str_file2=prefix+str_file2
             
-            #The magic of FFMPEG ...        
+            #The magic of FFMPEG ...  Convert  video to mp4      
             shell_cmd='ffmpeg -i '+str_file+' -vcodec libx264 -acodec libfaac '+ output_file
             #logger.debug('shell_cmd ...{0}'.format(shell_cmd))
             file_details=''
@@ -661,7 +669,8 @@ def upload(request):
                 newdoc.rename_shab(output)
             except Exception as e:
                 logger.debug('Failed to execute shell command ...{0}'.format(e))
-           
+            
+            #The magic of FFMPEG ...  Convert  video to mp4   
             shell_cmd1='ffmpeg -i '+str_file1+' -vcodec libx264 -acodec libfaac '+ output_file1
           
             file_details=''
@@ -672,8 +681,8 @@ def upload(request):
                 newdoc.rename_prev(output1)
             except Exception as e:
                 logger.debug('Failed to execute shell command ...{0}'.format(e))            
-            #logger.debug('file_detail 1 sfile_details 1 file_details 1 = {0}'.format(file_details))
-
+            
+            #Resize Poster image uploadeed to keep it all perfect size and limit disk space
             shell_cmd2 ="""convert %s -resize 300x200\! %s
             """%(str_file2,str_file2)
             #logger.debug(' THUM NAIL CONVERSION COMMAND === {0}'.format(shell_cmd2))
@@ -684,6 +693,7 @@ def upload(request):
             except Exception as e:
                 logger.debug('Failed to execute shell command ImageMagick with this error...{0}'.format(e))            
 
+            #Remove original uploaded files so we minimize disk storage
             shell_rm_file = "rm %s" %str_file
             shell_rm_file1 = "rm %s" %str_file1
             

@@ -4,7 +4,7 @@ PIL==1.1.7
 Pillow==2.5.3
 PyJWT==0.2.1
 boto==2.19.0
-django-crispy-forms==1.4.0
+django-crispy-forms==1.4.0x`
 django-favicon==0.1.1
 django-paypal==0.2.3
 django-social-auth==0.7.28
