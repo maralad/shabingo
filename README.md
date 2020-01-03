@@ -1,9 +1,9 @@
 # README #
-# This is the entire code that powers a fully functional video platform.. https://shabingo.com
+* This is the entire code that powers a fully functional video platform.. https://shabingo.com
 * The only thing you will need to add to it to get it working is your setttings. 
 * The shabingo_settings.cfg where settings.py gets all the passwords and secure information is stored in a private repo.
 * Below is what shabingo_settings.cfg keys are. Enter your own values for your server, database, stripe ids etc. 
-# Fill out the .cfg and save it somewhere on your server like /etc or somewhere secure where apache cannot read#
+* Fill out the .cfg and save it somewhere on your server like /etc or somewhere secure where apache cannot read#
 * Then just point the config parser to its location.
 *When running locally point the config parser to the location of the local shabingo_settings.cfg file and vice versa for in production.
 And that's all you have to do to make it work localy and in production.
